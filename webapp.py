@@ -15,11 +15,11 @@ import sys
  
 # You must configure these 3 values from Google APIs console
 # https://code.google.com/apis/console
-GOOGLE_CLIENT_ID = 'PUT CLIENT ID'
-GOOGLE_CLIENT_SECRET = 'PUT CLIENT SECRET'
-REDIRECT_URI = '/oauth2callback'  # one of the Redirect URIs from Google APIs console
+GOOGLE_CLIENT_ID = '352851019134-1dbi86ejibimp47keiqf0cjtcp3p58c2.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = 'qsvF4vx5eGBbpHWDAntXGEeK'
+REDIRECT_URI = '/login/authorized' # one of the Redirect URIs from Google APIs console
  
-SECRET_KEY = 'development key'
+SECRET_KEY = 'dog'
 DEBUG = True
  
 app = Flask(__name__)
