@@ -41,9 +41,9 @@ def login():
     callback=url_for('authorized', _external=True)
     return google.authorize(callback=callback)
  
-@app.route('/login/authorized')
-@google.authorized_handler
-def authorized():
+#@app.route('/login/authorized')
+#@google.authorized_handler
+#def authorized():
     #get info from google account.
  
 @google.tokengetter
