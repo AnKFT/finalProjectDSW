@@ -12,27 +12,16 @@ import os
 import json
 import pymongo
 import sys
- 
-# You must configure these 3 values from Google APIs console
-# https://code.google.com/apis/console
-GOOGLE_CLIENT_ID = '352851019134-1dbi86ejibimp47keiqf0cjtcp3p58c2.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = 'qsvF4vx5eGBbpHWDAntXGEeK'
-REDIRECT_URI = '/login/authorized' # one of the Redirect URIs from Google APIs console
-DEBUG = True
- 
-app = Flask(__name__)
-app.debug = DEBUG
-app.secret_key = SECRET_KEY
-oauth = OAuth()
-
 
 app = Flask(__name__)
 
 app.debug = True #Change this to False for production
+ 
+# You must configure these 3 values from Google APIs console
+# https://code.google.com/apis/console
 
-app.secret_key = SECRET_KEY
-
-oauth = OAuth()
+app.secret_key = os.environ['SECRET_KEY']
+oauth = OAuth(app)
 
 google = oauth.remote_app('google',
     base_url='https://www.google.com/accounts/',
@@ -42,8 +31,8 @@ google = oauth.remote_app('google',
     access_token_url='https://accounts.google.com/o/oauth2/token',
     access_token_method='POST',
     access_token_params={'grant_type': 'authorization_code'},
-    consumer_key=GOOGLE_CLIENT_ID,
-    consumer_secret=GOOGLE_CLIENT_SECRET)
+    consumer_key=os.environ['GOOGLE_CLIENT_ID'],
+    consumer_secret=os.environ['GOOGLE_CLIENT_SECRET'])
 
 @app.route('/')
 def index():
@@ -72,7 +61,7 @@ def login():
     callback=url_for('authorized', _external=True)
     return google.authorize(callback=callback)
  
-@app.route(REDIRECT_URI)
+@app.route('/login/authorized')
 @google.authorized_handler
 def authorized(resp):
     access_token = resp['access_token']
