@@ -66,7 +66,7 @@ def login():
 def authorized(resp):
     access_token = resp['access_token']
     session['access_token'] = access_token, ''
-    return redirect(url_for('index'))
+    return render_template('home.html')
  
 @google.tokengetter
 def get_access_token():
