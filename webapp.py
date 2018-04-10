@@ -18,8 +18,6 @@ import sys
 GOOGLE_CLIENT_ID = '352851019134-1dbi86ejibimp47keiqf0cjtcp3p58c2.apps.googleusercontent.com'
 GOOGLE_CLIENT_SECRET = 'qsvF4vx5eGBbpHWDAntXGEeK'
 REDIRECT_URI = '/login/authorized' # one of the Redirect URIs from Google APIs console
- 
-SECRET_KEY = 'dog'
 DEBUG = True
  
 app = Flask(__name__)
