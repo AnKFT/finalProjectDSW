@@ -1,5 +1,9 @@
-.searchbar {
-	position: absolute;
-	right: 600px;
+
+.dropdown {
+	left: 200px;
+}
+
+.dropdown li a {
+	color: #176ba8 !important; 
 	
 }
