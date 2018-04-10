@@ -34,7 +34,26 @@ google = oauth.remote_app('google',
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    access_token = session.get('access_token')
+    if access_token is None:
+        return redirect(url_for('login'))
+ 
+    access_token = access_token[0]
+    from urllib2 import Request, urlopen, URLError
+ 
+    headers = {'Authorization': 'OAuth '+access_token}
+    req = Request('https://www.googleapis.com/oauth2/v1/userinfo',
+                  None, headers)
+    try:
+        res = urlopen(req)
+    except URLError, e:
+        if e.code == 401:
+            # Unauthorized - bad token
+            session.pop('access_token', None)
+            return redirect(url_for('login'))
+        return res.read()
+ 
+    return res.read()
   
 @app.route('/login')
 def login():
@@ -46,7 +65,7 @@ def login():
 def authorized(resp):
     access_token = resp['access_token']
     session['access_token'] = access_token, ''
-    return render_template('home.html')
+    return redirect(url_for('index'))
  
 @google.tokengetter
 def get_access_token():
