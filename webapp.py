@@ -44,7 +44,7 @@ def login():
  
 @app.route('/login/authorized')
 @google.authorized_handler
-def authorized():
+def authorized(resp):
     #get info from google account.
     me="text2"
     resp = google.authorized_response()
