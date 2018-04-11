@@ -44,11 +44,9 @@ def login():
  
 @app.route('/login/authorized')
 @google.authorized_handler
-def authorized():
-    #get info from google account.
-    resp = google.authorized_response()
-    #if resp is None:
-     #   me = 'Access denied: reason=%s error=%s' + request.args['error_reason'] + request.args['error_description']
+def authorized(resp):
+    if resp is None:
+        me = 'Access denied: reason=%s error=%s' + request.args['error_reason'] + request.args['error_description']
     session['google_token'] = (resp['access_token'], '')
     me = google.get('userinfo')
     return render_template('home.html', info=me)
