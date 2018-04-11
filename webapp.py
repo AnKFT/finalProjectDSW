@@ -41,8 +41,7 @@ def index():
   
 @app.route('/login')
 def login():
-    callback=url_for('authorized', _external=True)
-    return google.authorize(callback=callback)
+    return google.authorize(callback=url_for('authorized', _external=True))
  
 @app.route('/login/authorized')
 @google.authorized_handler
