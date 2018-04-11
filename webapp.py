@@ -48,12 +48,10 @@ def login():
 @google.authorized_handler
 def authorized():
     #get info from google account.
+    me="text2"
     resp = google.authorized_response()
-    
     if resp is None:
-        error= 'Access denied: reason=%s error=%s' + request.args['error_reason'] + request.args['error_description']
-        return render_template('home.html', info=error)
-    
+        me = 'Access denied: reason=%s error=%s' + request.args['error_reason'] + request.args['error_description']
     session['google_token'] = (resp['access_token'], '')
     me = google.get('userinfo')
     return render_template('home.html', info=me)
