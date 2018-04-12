@@ -58,7 +58,7 @@ def index():
 def login():
     return google.authorize(callback=url_for('authorized', _external=True))
 
-@app.route('/search') 
+@app.route('/search', methods=['POST']) 
 def search_bar():
     try:
         print(request.form['searchvalue'])
