@@ -35,6 +35,10 @@ google = oauth.remote_app(
     authorize_url='https://accounts.google.com/o/oauth2/auth',
 )
 
+@app.context_processor
+def inject_logged_in():
+    return {"logged_in":('google_token' in session)}
+
 @app.route('/')
 def index():
     return render_template('home.html')
