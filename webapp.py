@@ -57,6 +57,14 @@ def index():
 @app.route('/login')
 def login():
     return google.authorize(callback=url_for('authorized', _external=True))
+
+@app.route('/search') 
+def search_bar():
+    try:
+        print(collection.find("{'key':" + request.form['searchvalue'] + "}"))
+    except Exception as e:
+        print(e)
+    return render_template('home.html')
  
 @app.route('/logout')
 def logout():
@@ -76,14 +84,6 @@ def authorized(resp):
 @google.tokengetter
 def get_google_oauth_token():
     return session.get('google_token')
-
- @app.route('/search') 
-def search_bar():
-    try:
-        print(collection.find("{'key':" + request.form['searchvalue'] + "}"))
-    except Exception as e:
-        print(e)
-    return render_template('home.html')
  
 if __name__ == '__main__':
     app.run()
