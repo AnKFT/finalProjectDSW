@@ -77,5 +77,9 @@ def authorized(resp):
 def get_google_oauth_token():
     return session.get('google_token')
 
+ @app.route('/search') 
+def search_bar():
+    print(collection.find("{'key':" + request.form['searchvalue'] + "}"))
+ 
 if __name__ == '__main__':
     app.run()
