@@ -21,15 +21,19 @@ app.debug = True #Change this to False for production
 app.secret_key = os.environ['SECRET_KEY']
 oauth = OAuth(app)
 
-google = oauth.remote_app('google',
-    base_url='https://www.googleapis.com/oauth2/v1/',
-    authorize_url='https://accounts.google.com/o/oauth2/auth',
-    request_token_url=None,
-    request_token_params={'scope': 'https://www.googleapis.com/auth/userinfo.email'},
-    access_token_url='https://accounts.google.com/o/oauth2/token',
-    access_token_method='POST',
+google = oauth.remote_app(
+    'google',
     consumer_key=os.environ['GOOGLE_CLIENT_ID'],
-    consumer_secret=os.environ['GOOGLE_CLIENT_SECRET'])
+    consumer_secret=os.environ['GOOGLE_CLIENT_SECRET'],
+    request_token_params={
+        'scope': 'email'
+    },
+    base_url='https://www.googleapis.com/oauth2/v1/',
+    request_token_url=None,
+    access_token_method='POST',
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+)
 
 @app.route('/')
 def index():
