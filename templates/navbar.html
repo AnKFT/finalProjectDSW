@@ -14,7 +14,7 @@
 	  <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
            {% if logged_in %}
-        	{{ session['user_name'] }}
+        	User: {{ session['user_name'] }}
 		   {% else %}
 		    My Account
 		   {% endif %}
