@@ -1,4 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto dropdown">
+	  <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           {% if logged_in %}
+        	{{ session['user_name'] }}
+		   {% else %}
+		    My Account
+		   {% endif %}
+        </a>
+		{% if logged_in %}
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+           <a class="dropdown-item" href="#">My Orders</a>
+           <div class="dropdown-divider"></div>
+           <a class="dropdown-item" href="#">My Listing</a>
+	      </div>
+		{% else %}
+		  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/login">Log In</a>
+	      </div>
+		{% endif %}
+      </li>
+    </ul>
+  </div>
   <a class="navbar-brand" href=".">eBzon</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -10,9 +34,6 @@
      </div>
   </form>
   <ul class="nav navbar-nav navbar-right">
-	{% if logged_in %}
-        <li><p class="navbar-text">{{ session['user_name'] }}</li>
-	{% endif %}
         <li>
 	  {% if logged_in %}
 	  <a href="/logout">Logout</a>
@@ -21,18 +42,4 @@
 	  {% endif %}
 	</li>
   </ul>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto dropdown">
-	  <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          My Orders
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Order 1</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Order 2</a>
-	</div>
-      </li>
-    </ul>
-  </div>
  </nav>
