@@ -24,6 +24,9 @@
     </div>
   </form>
   <ul class="nav navbar-nav navbar-right">
+	{% if logged_in %}
+        <li><p class="navbar-text">Username: {{ session['user_name']}}</li>
+	{% endif %}
         <li>
 	  {% if logged_in %}
 	  <a href="/logout">Logout</a>
