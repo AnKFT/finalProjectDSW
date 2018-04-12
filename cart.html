@@ -2,27 +2,22 @@
 	<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">    <!-- Identify your business so that you can collect the payments. -->
     <input type="hidden" name="business" value="kennyhong88@gmail.com">
 
-    <!-- Specify a PayPal Shopping Cart Add to Cart button. -->
     <input type="hidden" name="cmd" value="_cart">
     <input type="hidden" name="add" value="1">
 
-    <!-- Specify details about the item that buyers will purchase. -->
     <input type="hidden" name="item_name" value="yo">
     <input type="hidden" name="amount" value="3.95">
     <input type="hidden" name="currency_code" value="USD">
 
-    <!-- Continue shopping on the current webpage of the merchant site. -->
     <input type="hidden" name="shopping_url" value="file:///C:/Users/P2/Desktop/cart.html">
 
-    <!-- Display the payment button. -->
     <input type="image" name="submit"
         onclick=getContinueShoppingURL(this.form)
         src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif"
         alt="Add to Cart">
     <img alt="" width="1" height="1"
         src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
-		
-	<!-- Display the View Cart button. -->
+	
     <input type="image" name="submit"
         src="https://www.paypalobjects.com/en_US/i/btn/btn_viewcart_LG.gif"
        alt="Add to Cart">
