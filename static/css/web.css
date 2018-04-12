@@ -1,3 +1,15 @@
+.searchbar{
+	width: 70%;
+}
+
+.navbar-brand{
+	width: 10%;
+}
+
+.collapse{
+	width: 20%;
+}
+
 .dropdown li a {
 	color: #176ba8 !important; 	
 }
