@@ -37,10 +37,7 @@ google = oauth.remote_app(
 
 @app.route('/')
 def index():
-    me="text"
-    if 'google_token' in session:
-        me = session['google_token']
-    return render_template('home.html', info=me)
+    return render_template('home.html')
   
 @app.route('/login')
 def login():
