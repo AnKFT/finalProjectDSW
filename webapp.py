@@ -18,6 +18,17 @@ app.debug = True #Change this to False for production
 # You must configure these 3 values from Google APIs console
 # https://code.google.com/apis/console
 
+url = 'mongodb://{}:{}@{}:{}/{}'.format(
+        os.environ["MONGO_USERNAME"],
+        os.environ["MONGO_PASSWORD"],
+        os.environ["MONGO_HOST"],
+        os.environ["MONGO_PORT"],
+        os.environ["MONGO_DBNAME"])
+    
+client = pymongo.MongoClient(url)
+db = client[os.environ["MONGO_DBNAME"]]
+collection = db['forum-posts'] #put the name of your collection in the quotes
+
 app.secret_key = os.environ['SECRET_KEY']
 oauth = OAuth(app)
 
@@ -65,6 +76,9 @@ def authorized(resp):
 @google.tokengetter
 def get_google_oauth_token():
     return session.get('google_token')
+ 
+def search_bar():
+    
 
 if __name__ == '__main__':
     app.run()
