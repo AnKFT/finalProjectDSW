@@ -27,7 +27,7 @@ url = 'mongodb://{}:{}@{}:{}/{}'.format(
     
 client = pymongo.MongoClient(url)
 db = client[os.environ["MONGO_DBNAME"]]
-collection = db['forum-posts'] #put the name of your collection in the quotes
+collection = db['ebzondata'] #put the name of your collection in the quotes
 
 app.secret_key = os.environ['SECRET_KEY']
 oauth = OAuth(app)
@@ -76,9 +76,6 @@ def authorized(resp):
 @google.tokengetter
 def get_google_oauth_token():
     return session.get('google_token')
- 
-def search_bar():
-    
 
 if __name__ == '__main__':
     app.run()
