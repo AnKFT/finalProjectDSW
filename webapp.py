@@ -52,7 +52,7 @@ def authorized(resp):
     if resp is None:
         print('Access denied: reason=%s error=%s' + request.args['error_reason'] + request.args['error_description'])
     session['google_token'] = (resp['access_token'], '')
-    return render_template('home.html', info=me)
+    return render_template('home.html')
    
 @google.tokengetter
 def get_access_token():
