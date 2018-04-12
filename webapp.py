@@ -47,6 +47,11 @@ def index():
 def login():
     return google.authorize(callback=url_for('authorized', _external=True))
  
+@app.route('/logout')
+def logout():
+    session.pop('google_token', None)
+    return render_template('home.html',info="Logged_out")
+ 
 @app.route('/login/authorized')
 @google.authorized_handler
 def authorized(resp):
