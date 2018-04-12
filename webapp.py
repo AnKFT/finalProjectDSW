@@ -61,7 +61,8 @@ def login():
 @app.route('/search', methods=['POST']) 
 def search_bar():
     try:
-        print(collection.find({'key':'listin1'}))
+        search['key'] = request.form['searchvalue']
+        print(collection.find(search))
     except Exception as e:
         print(e)
     return render_template('home.html')
