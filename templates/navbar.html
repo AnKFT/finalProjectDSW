@@ -3,12 +3,6 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <form class="form-inline">
-    <div class="searchbar">
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </div>
-  </form>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto dropdown">
 	  <li class="nav-item dropdown">
@@ -23,6 +17,12 @@
       </li>
     </ul>
   </div>
+  <form class="form-inline">
+    <div class="searchbar">
+      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </div>
+  </form>
   <ul class="nav navbar-nav navbar-right">
         <li>
 	  {% if logged_in %}
@@ -31,5 +31,5 @@
 	  <a href="/login">Login</a>
 	  {% endif %}
 	</li>
-      </ul>
+  </ul>
 </nav>
