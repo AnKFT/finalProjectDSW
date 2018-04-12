@@ -79,7 +79,11 @@ def get_google_oauth_token():
 
  @app.route('/search') 
 def search_bar():
-    print(collection.find("{'key':" + request.form['searchvalue'] + "}"))
+    try:
+        print(collection.find("{'key':" + request.form['searchvalue'] + "}"))
+    except Exception as e:
+        print(e)
+    return render_template('home.html')
  
 if __name__ == '__main__':
     app.run()
