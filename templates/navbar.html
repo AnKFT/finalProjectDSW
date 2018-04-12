@@ -1,39 +1,34 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href=".">eBzon</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <form class="form-inline">
-    <div class="searchbar">
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <form class="form-inline">
+     <div class="searchbar">
+       <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+       <button class="btn btn-outline-success" type="submit">Search</button>
+     </div>
+    </form>
+	<div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Forum</a>
     </div>
-  </form>
-  <ul class="nav navbar-nav navbar-right">
-	{% if logged_in %}
-        <li><p class="navbar-text">Username: {{ session['user_name'] }}</li>
-	{% endif %}
-        <li>
-	  {% if logged_in %}
-	  <a href="/logout">Logout</a>
-	  {% else %}
-	  <a href="/login">Login</a>
-	  {% endif %}
-	</li>
-  </ul>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto dropdown">
-	  <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          My Orders
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Order 1</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Order 2</a>
-	</div>
-      </li>
-    </ul>
-  </div>
-  
+    <ul class="nav navbar-nav navbar-right">
+		{% if logged_in %}
+        	<li><p class="navbar-text">{{ session['user_name'] }}</li>
+		{% endif %}
+        	<li>
+		  {% if logged_in %}
+		  <a href="/logout">Logout</a>
+		  {% else %}
+		  <a href="/login">Login</a>
+		  {% endif %}
+		</li>
+  	</ul>       
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
+  
