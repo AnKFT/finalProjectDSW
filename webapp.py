@@ -83,7 +83,7 @@ def authorized(resp):
     if resp is None:
         me = 'Access denied: reason=%s error=%s' + request.args['error_reason'] + request.args['error_description']
     session['google_token'] = (resp['access_token'], '')
-    return redirect(url_for('.'))
+    return redirect(url_for(''))
    
 @google.tokengetter
 def get_google_oauth_token():
