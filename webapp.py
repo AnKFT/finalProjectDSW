@@ -27,7 +27,7 @@ url = 'mongodb://{}:{}@{}:{}/{}'.format(
     
 client = pymongo.MongoClient(url)
 db = client[os.environ["MONGO_DBNAME"]]
-collection = db['ebzondata'] #put the name of your collection in the quotes
+collection = db['searchbar'] #put the name of your collection in the quotes
 
 app.secret_key = os.environ['SECRET_KEY']
 oauth = OAuth(app)
