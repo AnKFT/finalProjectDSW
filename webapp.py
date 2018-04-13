@@ -62,6 +62,14 @@ def index():
 @app.route('/login')
 def login():
     return google.authorize(callback=url_for('authorized', _external=True))
+ 
+@app.route('/logout')
+def logout():
+    session.pop('google_token', None)
+    return redirect(url_for('index'))
+
+@app.route('/createListing',methods=['POST'])
+def create_listing():
 
 @app.route('/search', methods=['POST']) 
 def search_bar():
@@ -71,11 +79,6 @@ def search_bar():
         print(collection.find(search))
     except Exception as e:
         print(e)
-    return redirect(url_for('index'))
- 
-@app.route('/logout')
-def logout():
-    session.pop('google_token', None)
     return redirect(url_for('index'))
  
 @app.route('/login/authorized')
