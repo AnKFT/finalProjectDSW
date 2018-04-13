@@ -70,7 +70,10 @@ def logout():
 
 @app.route('/createListing',methods=['POST'])
 def create_listing():
-    collection.insert_one({session['user_name']:{'listings':{'title':request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
+    try:
+        collection.insert_one({session['user_name']:{'listings':{'title':request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
+    except Exception as e:
+        print(e)
     return redirect(url_for('index'))
 
 @app.route('/search', methods=['POST']) 
