@@ -52,7 +52,7 @@ def inject_logged_in():
 
 @app.route('/')
 def index():
-    me="text"
+    me="Not Logged In"
     if 'google_token' in session:
         me = google.get('userinfo')
         session['user_name'] = me.data['name']
@@ -71,12 +71,12 @@ def search_bar():
         print(collection.find(search))
     except Exception as e:
         print(e)
-    return render_template('home.html')
+    return redirect(url_for('index'))
  
 @app.route('/logout')
 def logout():
     session.pop('google_token', None)
-    return render_template('home.html',info="Logged_out")
+    return redirect(url_for('index'))
  
 @app.route('/login/authorized')
 @google.authorized_handler
