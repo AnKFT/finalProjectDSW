@@ -56,7 +56,8 @@ def index():
     if 'google_token' in session:
         me = google.get('userinfo')
         session['user_name'] = me.data['name']
-    return render_template('home.html', info=me.data)
+        return render_template('home.html', info=me.data)
+    return render_template('home.html',info=me)
   
 @app.route('/login')
 def login():
