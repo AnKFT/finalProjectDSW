@@ -70,6 +70,8 @@ def logout():
 
 @app.route('/createListing',methods=['POST'])
 def create_listing():
+    collection.insert_one({session['user_name']:{'listings':{'title':request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
+    return redirect(url_for('index'))
 
 @app.route('/search', methods=['POST']) 
 def search_bar():
