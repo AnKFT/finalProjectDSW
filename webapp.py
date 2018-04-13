@@ -52,7 +52,11 @@ def inject_logged_in():
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    me="text"
+    if 'google_token' in session:
+        me = google.get('userinfo')
+        session['user_name'] = me.data['name']
+    return render_template('home.html', info=me.data)
   
 @app.route('/login')
 def login():
@@ -79,9 +83,7 @@ def authorized(resp):
     if resp is None:
         me = 'Access denied: reason=%s error=%s' + request.args['error_reason'] + request.args['error_description']
     session['google_token'] = (resp['access_token'], '')
-    me = google.get('userinfo')
-    session['user_name'] = me.data['name']
-    return render_template('home.html',info=me.data)
+    return redirect(url_for('.'))
    
 @google.tokengetter
 def get_google_oauth_token():
