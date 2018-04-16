@@ -70,8 +70,7 @@ def logout():
   
 def showListings():
     table=""  
-    print(collection.find({session['user_name']}))
-    table=Markup('<table><tr><td><pre> </pre></td></tr></table>')
+    table=Markup('<table><tr><td><pre>No listing Yet </pre></td></tr></table>')
     return table
 
 @app.route('/createListing',methods=['POST'])
