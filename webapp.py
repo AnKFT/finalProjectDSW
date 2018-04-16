@@ -70,10 +70,9 @@ def logout():
   
 def showListings():
     table=""
-    try:
-        for document in collection.find():
-            if session['user_name'] in document:
-                table=Markup('<table><tr><td><pre>' + document[str(session['user_name'])] + '</pre></td></tr></table>')
+    for document in collection.find():
+        if session['user_name'] in document:
+            table=Markup('<table><tr><td><pre>' + document[str(session['user_name'])] + '</pre></td></tr></table>')
     return table
 
 @app.route('/createListing',methods=['POST'])
