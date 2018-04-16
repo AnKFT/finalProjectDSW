@@ -72,7 +72,7 @@ def showListings():
     table=""
     for document in collection.find():
         if session['user_name'] in document:
-            table=Markup('<table><tr><td><pre>' + document[str(session['user_name'])] + '</pre></td></tr></table>')
+            table=Markup('<table><tr><td><pre> hello </pre></td></tr></table>')
     return table
 
 @app.route('/createListing',methods=['POST'])
