@@ -15,7 +15,8 @@
 	<ul class="navbar-nav dropdown">
 		{% if logged_in %}
 		<li class="nav-item">
-			<a class="nav-link" href="#">Purchases</a>
+			<a class="nav-link" href="#" data-toggle="modal" data-target="#myModal2">Purchases</a>
+			{% include 'purchasingModal.html' %}
 		</li>
 		<li class="nav-item">
 			<!-- Trigger the modal with a button, <button type="button" class="btn nav-link" data-toggle="modal" data-target="#myModal">Selling</button>-->
