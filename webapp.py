@@ -55,7 +55,7 @@ def index():
     me="Not Logged In"
     if 'google_token' in session:
         me = google.get('userinfo')
-        session['user_name'] = me.data['name']
+        session['user_name'] = me.data['email']
         return render_template('home.html', info=me.data)
     return render_template('home.html',info=me,listingTable=showListings())
   
