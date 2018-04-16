@@ -56,7 +56,7 @@ def index():
     if 'google_token' in session:
         me = google.get('userinfo')
         session['user_name'] = me.data['id']
-        return render_template('home.html', info=me.data)
+        return render_template('home.html', info=me.data, listingTable=showListings())
     return render_template('home.html',info=me,listingTable=showListings())
   
 @app.route('/login')
@@ -76,7 +76,7 @@ def showListings():
 
 @app.route('/createListing',methods=['POST'])
 def create_listing():
-    collection.insert_one({session['user_name']:[request.form['ltitle'],request.form['ppemail']})
+    collection.insert_one({str(session['user_name']):{str(request.form['ltitle']):{'paypaladdress':request.form['ppemail']}}})
     return redirect(url_for('index'))
 
 @app.route('/search', methods=['POST']) 
