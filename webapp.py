@@ -69,7 +69,8 @@ def logout():
     return redirect(url_for('index'))
   
 def showListings():
-    table=""  
+    table=""
+    print(str(collection.find({str(session['user_id']):"Listing"})))
     table=Markup('<table><tr><td>Title</td><td>Paypal</td></tr><tr><td>'+ str(collection.find({str(session['user_id']):"Listing"})) +'</td><td>'+ str(collection.find({str(session['user_id']):"Listing"})) +'</td></tr></table>')
     return table
 
