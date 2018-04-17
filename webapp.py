@@ -55,7 +55,7 @@ def index():
     me="Not Logged In"
     if 'google_token' in session:
         me = google.get('userinfo')
-        session['user_name'] = me.data['id']
+        session['user_id'] = me.data['id']
         return render_template('home.html', info=me.data, listingTable=showListings())
     return render_template('home.html',info=me,listingTable=showListings())
   
@@ -70,12 +70,12 @@ def logout():
   
 def showListings():
     table=""  
-    table=Markup('<table><tr><td><pre>No listing Yet </pre></td></tr></table>')
+    table=Markup('<table><tr><td>Title</td><td>Paypal</td></tr><tr><td>'+ collection.find({session['user_id']:"Listing"})['title'] +'</td><td>'+ collection.find({session['user_id']:"Listing"})['paypaladdress'] +'</td></tr></table>')
     return table
 
 @app.route('/createListing',methods=['POST'])
 def create_listing():
-    collection.insert_one({str(session['user_name']):{str(request.form['ltitle']):{'paypaladdress':request.form['ppemail']}}})
+    collection.insert_one({str(session['user_name']):{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
     return redirect(url_for('index'))
 
 @app.route('/search', methods=['POST']) 
