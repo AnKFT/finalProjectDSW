@@ -75,7 +75,7 @@ def showListings():
 
 @app.route('/createListing',methods=['POST'])
 def create_listing():
-    collection.insert_one({str(session['user_name']):{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
+    collection.insert_one({str(session['user_id']):{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
     return redirect(url_for('index'))
 
 @app.route('/search', methods=['POST']) 
