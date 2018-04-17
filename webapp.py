@@ -57,7 +57,7 @@ def index():
         me = google.get('userinfo')
         session['user_id'] = me.data['id']
         return render_template('home.html', info=me.data, listingTable=showListings())
-    return render_template('home.html',info=me,listingTable=showListings())
+    return render_template('home.html',info=me)
   
 @app.route('/login')
 def login():
