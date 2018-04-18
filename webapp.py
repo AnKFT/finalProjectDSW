@@ -70,7 +70,8 @@ def logout():
   
 def showListings():
     table=""
-    print(collection.find({session['user_id']:1}))
+    for doc in collection.find():
+        print(doc[session['user_id']])
     table=Markup('<table><tr><td>Title</td><td>Paypal</td></tr><tr><td>'+ str(collection.find({session['user_id']:True})) +'</td><td>'+ str(collection.find({str(session['user_id']):"Listing"})) +'</td></tr></table>')
     return table
 
