@@ -70,12 +70,12 @@ def logout():
   
 def showListings():
     table=""
-    table=Markup('<table><tr><td>Title</td><td>Paypal</td></tr><tr><td>'+ str(collection.find({str(session['user_id']):True})) +'</td><td>'+ str(collection.find({str(session['user_id']):"Listing"})) +'</td></tr></table>')
+    table=Markup('<table><tr><td>Title</td><td>Paypal</td></tr><tr><td>'+ str(collection.find({session['user_id']:True})) +'</td><td>'+ str(collection.find({str(session['user_id']):"Listing"})) +'</td></tr></table>')
     return table
 
 @app.route('/createListing',methods=['POST'])
 def create_listing():
-    collection.insert_one({str(session['user_id']):{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
+    collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
     return redirect(url_for('index'))
 
 @app.route('/search', methods=['POST']) 
