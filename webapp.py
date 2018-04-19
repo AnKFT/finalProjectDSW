@@ -68,6 +68,18 @@ def logout():
     session.pop('google_token', None)
     return redirect(url_for('index'))
   
+@app.route('/createListing',methods=['POST'])
+def create_listing():
+    collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
+    return showListings()
+  
+@app.route('/deleteListing',methods=['POST'])
+def delete():
+    #delete posts
+    global collection
+    collection.delete_one({"_id" : ObjectId(str(request.form['id']))})
+    return showListings()
+  
 def showListings():
     tablestr='<table id="listingT"><tr><td>Title</td><td>Paypal</td></tr>'
     table=""
@@ -82,19 +94,6 @@ def showListings():
     tablestr += "</table>"
     table += Markup(tablestr)
     return table
-
-@app.route('/createListing',methods=['POST'])
-def create_listing():
-    print(request.form)
-    collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
-    return showListings()
-  
-@app.route('/deleteListing',methods=['POST'])
-def delete():
-    #delete posts
-    global collection
-    collection.delete_one({"_id" : ObjectId(str(request.form['id']))})
-    return showListings()
 
 @app.route('/search', methods=['POST']) 
 def search_bar():
