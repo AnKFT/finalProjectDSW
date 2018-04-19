@@ -78,7 +78,7 @@ def showListings():
             tablestr += "</td><td>"
             tablestr += str(doc[session['user_id']]['Listing']['paypaladdress'])
             tablestr += "</td><td>"
-            tablestr += '<button id="bois" name="delete" value="' + str(doc.get('_id'))+ '">Delete</button></td></tr>'
+            tablestr += '<button id="bois" name="delete" value="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
     tablestr += "</table>"
     table += Markup(tablestr)
     return table
@@ -88,11 +88,11 @@ def create_listing():
     collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
     return redirect(url_for('index'))
   
-@app.route('/deleteListing', methods=['GET','POST'])
+@app.route('/deleteListing')
 def delete():
     #delete posts
     global collection
-    collection.delete_one({"_id" : ObjectId(str(request.form['delete']))})
+    collection.delete_one({"_id" : ObjectId(str(request.args['delete']))})
     return Markup("<table></table>")
 
 @app.route('/search', methods=['POST']) 
