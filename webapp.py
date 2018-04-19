@@ -57,7 +57,7 @@ def index():
         me = google.get('userinfo')
         session['user_id'] = me.data['id']
         return render_template('home.html', info=me.data, listingTable=showListings())
-    return render_template('home.html',info=me.data)
+    return render_template('home.html',info=me)
   
 @app.route('/login')
 def login():
@@ -73,6 +73,7 @@ def showListings():
     for doc in collection.find():
         if session['user_id'] in doc:
             #print("Your stuff: " + str(doc[session['user_id']]['Listing']))
+            print("Hello")
         else:
             print(doc)
     return table
