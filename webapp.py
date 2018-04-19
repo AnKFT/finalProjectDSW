@@ -69,7 +69,7 @@ def logout():
     return redirect(url_for('index'))
   
 def showListings():
-    tablestr += "<table><tr><td>Title</td><td>Paypal</td></tr>"
+    tablestr="<table><tr><td>Title</td><td>Paypal</td></tr>"
     table=""
     for doc in collection.find():
         if session['user_id'] in doc:
