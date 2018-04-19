@@ -1,5 +1,5 @@
 $(document).ready(function(){
 	$(".deleteButton").click(function(){
-		$("#listingT").load("/deleteListing", $("#bois").val());
+		$("#listingT").load("/deleteListing", $(".deleteButton").val());
 	})
 });
