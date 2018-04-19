@@ -69,7 +69,7 @@ def logout():
     return redirect(url_for('index'))
   
 def showListings():
-    tablestr='<table id="dog"><tr><td>Title</td><td>Paypal</td></tr>'
+    tablestr='<table id="listingT"><tr><td>Title</td><td>Paypal</td></tr>'
     table=""
     for doc in collection.find():
         if session['user_id'] in doc:
@@ -78,7 +78,7 @@ def showListings():
             tablestr += "</td><td>"
             tablestr += str(doc[session['user_id']]['Listing']['paypaladdress'])
             tablestr += "</td><td>"
-            tablestr += '<button id="bois" name="delete" value="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
+            tablestr += '<button class="deleteButton" name="delete" value="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
     tablestr += "</table>"
     table += Markup(tablestr)
     return table
