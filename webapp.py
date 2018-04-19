@@ -78,7 +78,7 @@ def showListings():
             tablestr += "</td><td>"
             tablestr += str(doc[session['user_id']]['Listing']['paypaladdress'])
             tablestr += "</td><td>"
-            tablestr += '<form action="/delete" method="post"><button type="submit" name="delete" value="' + str(doc.get('_id'))+ '">Delete</button></form></td></tr>'
+            tablestr += '<form action="/delete" method="post"><button type="submit" button id="bois" name="delete" value="' + str(doc.get('_id'))+ '">Delete</button></form></td></tr>'
     tablestr += "</table>"
     table += Markup(tablestr)
     return table
