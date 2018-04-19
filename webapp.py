@@ -74,6 +74,7 @@ def showListings():
         if session['user_id'] in doc:
             print("Your stuff: " + str(doc[session['user_id']]))
             print("TS" + str(doc))
+            print(type(doc[session['user_id']]))
         else:
             print(doc)
     return table
