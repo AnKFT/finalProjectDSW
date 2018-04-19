@@ -70,7 +70,7 @@ def logout():
   
 @app.route('/createListing',methods=['POST'])
 def create_listing():
-    collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
+    collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'description':request.form['description'],'paypaladdress':request.form['ppemail']}}})
     return showListings()
   
 @app.route('/deleteListing',methods=['POST'])
@@ -87,6 +87,8 @@ def showListings():
         if session['user_id'] in doc:
             tablestr += '<tr class="listing"><td>'
             tablestr += str(doc[session['user_id']]['Listing']['title'])
+            tablestr += "</td><td>"
+            tablestr += str(doc[session['user_id']]['Listing']['description'])
             tablestr += "</td><td>"
             tablestr += str(doc[session['user_id']]['Listing']['paypaladdress'])
             tablestr += "</td><td>"
