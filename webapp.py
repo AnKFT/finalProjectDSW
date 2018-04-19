@@ -93,7 +93,7 @@ def delete():
     #delete posts
     global collection
     collection.delete_one({"_id" : ObjectId(str(request.form['delete']))})
-    return redirect(url_for('index'))
+    return showLisings()
 
 @app.route('/search', methods=['POST']) 
 def search_bar():
