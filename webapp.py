@@ -69,10 +69,17 @@ def logout():
     return redirect(url_for('index'))
   
 def showListings():
+    tablestr=""
     table=""
     for doc in collection.find():
         if session['user_id'] in doc:
             print("Your stuff: " + str(doc[session['user_id']]['Listing']))
+            tablestr += "<table><tr><td>Title</td><td>Paypal</td></tr><tr><td>"
+            tablestr += str(doc[session['user_id']]['Listing']['title'])
+            tablestr += "</td><td>"
+            tablestr += str(doc[session['user_id']]['Listing']['paypaladdress'])
+            tablestr += "</td></tr></table>"
+            table += Markup(tablestr)
         else:
             print(doc)
     return table
