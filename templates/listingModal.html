@@ -26,10 +26,12 @@
       					</div>
       					<div class="modal-body">
         					<form id="createListForm">
-							<label for="ltitle">Listing Title</label>
-							<input name="ltitle" type="text" class="form-control" placeholder="Ticonderoga Pencil" id="ltitle">
+							<label for="ltitle">Title</label>
+							<input name="ltitle" type="text" class="form-control" placeholder="Pencil" id="ltitle" maxlength="8">
+							<label for="description">Description</label>
+							<input name="des" type="text" class="form-control" placeholder="New and sealed in package." id="des" maxlength="14">
 							<label for="paypaladdress">PayPal</label>
-							<input name="ppemail" type="email" class="form-control" placeholder="name@example.com" id="paypaladdress">
+							<input name="ppemail" type="email" class="form-control" placeholder="name@example.com" id="paypaladdress" maxlength="20">
 							<br>
 							<button type="submit" class="btn btn-success createList" data-toggle="modal" data-target="#myModal" data-dismiss="modal">Create</button>
 						</form>
