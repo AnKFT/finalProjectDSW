@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$("#bois").click(function(){
-		$("#dog").load("/deleteListing", $("#bois").val());
+	$(".deleteButton").click(function(){
+		$("#listingT").load("/deleteListing", $("#bois").val());
 	})
 });
