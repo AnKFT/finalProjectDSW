@@ -72,7 +72,7 @@ def showListings():
     table=""
     for doc in collection.find():
         if session['user_id'] in doc:
-            print("Your stuff: " + str(doc))
+            print("Your stuff: " + str(doc['Listing']))
         else:
             print(doc)
     return table
