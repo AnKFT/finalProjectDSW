@@ -87,7 +87,7 @@ def showListings():
 def create_listing():
     print(request.form)
     collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
-    return redirect(url_for('index'))
+    return showListings()
   
 @app.route('/deleteListing',methods=['POST'])
 def delete():
