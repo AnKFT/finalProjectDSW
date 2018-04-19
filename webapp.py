@@ -77,7 +77,8 @@ def showListings():
             tablestr += str(doc[session['user_id']]['Listing']['title'])
             tablestr += "</td><td>"
             tablestr += str(doc[session['user_id']]['Listing']['paypaladdress'])
-            tablestr += "</td></tr>"
+            tablestr += "</td><td>"
+            tablestr += '<form action="/delete" method="post"><button type="submit" name="delete" value="' + str(doc.get('_id'))+ '">Delete</button></form></td></tr>'
     tablestr += "</table>"
     table += Markup(tablestr)
     return table
@@ -85,6 +86,13 @@ def showListings():
 @app.route('/createListing',methods=['POST'])
 def create_listing():
     collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
+    return redirect(url_for('index'))
+  
+@app.route('/delete', methods=['POST'])
+def delete():
+    #delete posts
+    global collection
+    collection.delete_one({"_id" : ObjectId(str(request.form['delete']))})
     return redirect(url_for('index'))
 
 @app.route('/search', methods=['POST']) 
