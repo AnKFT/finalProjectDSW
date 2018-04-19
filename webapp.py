@@ -73,7 +73,7 @@ def showListings():
     table=""
     for doc in collection.find():
         if session['user_id'] in doc:
-            tablestr += "<tr><td>"
+            tablestr += '<tr class="listing"><td>'
             tablestr += str(doc[session['user_id']]['Listing']['title'])
             tablestr += "</td><td>"
             tablestr += str(doc[session['user_id']]['Listing']['paypaladdress'])
