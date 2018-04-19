@@ -88,7 +88,7 @@ def create_listing():
     collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'paypaladdress':request.form['ppemail']}}})
     return redirect(url_for('index'))
   
-@app.route('/delete', methods=['POST'])
+@app.route('/deleteListing', methods=['POST'])
 def delete():
     #delete posts
     global collection
