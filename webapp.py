@@ -92,7 +92,8 @@ def create_listing():
 def delete():
     #delete posts
     global collection
-    collection.delete_one({"_id" : ObjectId(str(request.args['deleteListing']))})
+    print(request.args)
+    collection.delete_one({"_id" : ObjectId(str(request.args['delete']))})
     return Markup("<table></table>")
 
 @app.route('/search', methods=['POST']) 
