@@ -72,6 +72,7 @@ def showListings():
     table=""
     for doc in collection.find():
         if session['user_id'] in doc:
+            print("Your stuff: " + str(doc))
             if doc['user_id']['Listing'] in doc['user_id']:
                 table=Markup('<table><tr><td>Title</td><td>Paypal</td></tr><tr><td>'+ doc[session['user_id']]['Listing']['title'] +'</td><td>'+ doc[session['user_id']]['Listing']['paypaladdress'] +'</td></tr></table>')
         else:
