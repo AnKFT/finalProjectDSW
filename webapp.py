@@ -54,6 +54,14 @@ google = oauth.remote_app(
 def inject_logged_in():
     return {"logged_in":('google_token' in session)}
 
+@socketio.on('connect') #run this when the connection starts
+def test_connect():
+    global thread
+	   with thread_lock: #lock the thread in case multiple clients are connecting at the same time.
+		      if thread is None:
+			         thread = socketio.start_background_task(target=showListings)
+    emit('refresh')
+ 
 @app.route('/')
 def index():
     me="Not Logged In"
