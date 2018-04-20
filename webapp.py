@@ -10,6 +10,7 @@ import os
 import json
 import pymongo
 import sys
+import time
 
 app = Flask(__name__)
 
@@ -78,10 +79,11 @@ def delete():
     #delete posts
     global collection
     collection.delete_one({"_id" : ObjectId(str(request.form['id']))})
+    time.sleep(15)
     return showListings()
   
 def showListings():
-    tablestr='<table id="listingT"><tr><td>Title</td><td>Description</td><td>Paypal</td></tr>'
+    tablestr='<table id="listingT"><tr><td>Title</td><td>Paypal</td></tr>'
     table=""
     for doc in collection.find():
         if session['user_id'] in doc:
