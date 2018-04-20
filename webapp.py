@@ -60,7 +60,7 @@ def index():
     if 'google_token' in session:
         me = google.get('userinfo')
         session['user_id'] = me.data['id']
-        return render_template('home.html', info=me.data, listingTable=showListings())
+        return render_template('home.html', info=me.data, listingTable=showListings(), async_mode = socketio.async_mode)
     return render_template('home.html',info=me)
   
 @app.route('/login')
