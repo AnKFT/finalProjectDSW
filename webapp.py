@@ -57,9 +57,9 @@ def inject_logged_in():
 @socketio.on('connect') #run this when the connection starts
 def test_connect():
     global thread
-	   with thread_lock: #lock the thread in case multiple clients are connecting at the same time.
-		      if thread is None:
-			         thread = socketio.start_background_task(target=showListings)
+	  with thread_lock:
+		    if thread is None:
+			      thread = socketio.start_background_task(target=showListings)
     emit('refresh')
  
 @app.route('/')
