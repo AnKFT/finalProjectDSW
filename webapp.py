@@ -79,7 +79,7 @@ def delete():
     #delete posts
     global collection
     collection.delete_one({"_id" : ObjectId(str(request.form['id']))})
-    time.sleep(15)
+    time.sleep(3)
     return showListings()
   
 def showListings():
