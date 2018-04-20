@@ -13,9 +13,9 @@ import pymongo
 import sys
 
 app = Flask(__name__)
-socketio  SocketIO(app, async_mode=None)
-thread = Nonr
-thread_lock = Lock()
+socketio=SocketIO(app, async_mode=None)
+thread=None
+thread_lock=Lock()
 
 app.debug = True #Change this to False for production
  
