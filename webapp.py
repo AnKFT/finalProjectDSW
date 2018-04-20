@@ -10,7 +10,6 @@ import os
 import json
 import pymongo
 import sys
-import time
 
 app = Flask(__name__)
 
@@ -79,7 +78,6 @@ def delete():
     #delete posts
     global collection
     collection.delete_one({"_id" : ObjectId(str(request.form['id']))})
-    time.sleep(3)
     return showListings()
   
 def showListings():
