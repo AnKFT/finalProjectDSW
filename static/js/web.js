@@ -1,8 +1,5 @@
 $(document).ready(function(){
 	$(".deleteButton").click(function(){
-		$("#listingT").load("/deleteListing", {'id':$(".deleteButton").val()});
+		$("#listingT").load("/deleteListing #listingT", {'id':$(".deleteButton").val()});
 	})
-	$('#createListForm').on('submit', function() {
-            $('#myModal').modal('show');
-        })
 });
