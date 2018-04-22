@@ -58,7 +58,7 @@ def index():
     if 'google_token' in session:
         me = google.get('userinfo')
         session['user_id'] = me.data['id']
-        return render_template('home.html', info=me.data, listingTable=showListings(), async_mode = socketio.async_mode)
+        return render_template('home.html', info=me.data, listingTable=showListings())
     return render_template('home.html',info=me)
   
 @app.route('/login')
@@ -73,6 +73,7 @@ def logout():
 @app.route('/createListing',methods=['POST'])
 def create_listing():
     collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'description':request.form['des'],'paypaladdress':request.form['ppemail']}}})
+    return showListiings()
   
 @app.route('/deleteListing',methods=['POST'])
 def delete():
