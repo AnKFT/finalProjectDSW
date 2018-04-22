@@ -14,9 +14,6 @@ import pymongo
 import sys
 
 app = Flask(__name__)
-socketio = SocketIO(app, async_mode=None)
-thread = None
-thread_lock = Lock()
 
 app.debug = True #Change this to False for production
  
@@ -54,14 +51,6 @@ google = oauth.remote_app(
 @app.context_processor
 def inject_logged_in():
     return {"logged_in":('google_token' in session)}
-
-@socketio.on('connect') #run this when the connection starts
-def test_connect():
-    global thread
-    with thread_lock:
-        if thread is None:
-            thread=socketio.start_background_task(target=showListings)
-    emit('refresh')
  
 @app.route('/')
 def index():
@@ -84,7 +73,6 @@ def logout():
 @app.route('/createListing',methods=['POST'])
 def create_listing():
     collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'description':request.form['des'],'paypaladdress':request.form['ppemail']}}})
-    return showListings()
   
 @app.route('/deleteListing',methods=['POST'])
 def delete():
