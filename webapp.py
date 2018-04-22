@@ -94,7 +94,7 @@ def delete():
     return showListings()
   
 def showListings():
-    tablestr='<table id="listingT"><tr><td>Title</td><td>Paypal</td></tr>'
+    tablestr='<table id="listingT"><tr><td>Title</td><td>Description</td><td>Paypal</td></tr>'
     table=""
     for doc in collection.find():
         if session['user_id'] in doc:
