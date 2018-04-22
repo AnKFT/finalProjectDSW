@@ -73,7 +73,7 @@ def logout():
 @app.route('/createListing',methods=['POST'])
 def create_listing():
     collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'description':request.form['des'],'paypaladdress':request.form['ppemail']}}})
-    return showListiings()
+    return showListings()
   
 @app.route('/deleteListing',methods=['POST'])
 def delete():
