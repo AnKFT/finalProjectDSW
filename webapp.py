@@ -34,8 +34,6 @@ collection = db['searchbar'] #put the name of your collection in the quotes
 
 app.secret_key = os.environ['SECRET_KEY']
 oauth = OAuth(app)
-db = client[os.environ["MONGO_DBMANE"]]
-collection = db['searchbar'] #put the name of your collection in the quotes.
 
 google = oauth.remote_app(
     'google',
