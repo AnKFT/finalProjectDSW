@@ -12,6 +12,7 @@ import os
 import json
 import pymongo
 import sys
+import numbers
 
 app = Flask(__name__)
 
@@ -33,6 +34,8 @@ collection = db['searchbar'] #put the name of your collection in the quotes
 
 app.secret_key = os.environ['SECRET_KEY']
 oauth = OAuth(app)
+db = client[os.environ["MONGO_DBMANE"]]
+collection = db['searchbar'] #put the name of your collection in the quotes.
 
 google = oauth.remote_app(
     'google',
@@ -126,6 +129,7 @@ def search_bar():
     return redirect(url_for('index'))
  
 @app.route('/login/authorized')
+ 
 @google.authorized_handler
 def authorized(resp):
     if resp is None:
