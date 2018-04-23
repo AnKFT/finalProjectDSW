@@ -98,7 +98,23 @@ def showListings():
     tablestr += "</table>"
     table += Markup(tablestr)
     return table
-
+   
+@app.route('/display', methods=['POST'])
+def displayListing():
+  tablestr='<table>'  
+  table=""
+  for doc in collection.find():
+       if session['user_id'] in doc:
+            tablestr += '<tr class="listing"><td>'
+            tablestr += str(doc[session['user_id']]['Listing']['title'])
+            tablestr += "</td><td>"
+            tablestr += str(doc[session['user_id']]['Listing']['description'])
+            tablestr += "</td><td>"
+            tablestr += str(doc[session['user_id']]['Listing']['paypaladdress'])
+            tablestr += "</td><td>"
+   tablestr+='</table>'
+   table += Markup(tablestr)
+   return redirect(url_for('index'))
 @app.route('/search', methods=['POST']) 
 def search_bar():
     try:
