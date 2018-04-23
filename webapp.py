@@ -103,7 +103,7 @@ def showListings():
 def displayListing():
     for doc in collection.find():
         if session['user_id'] in doc:
-            print str(doc[session['user_id']]['Listing']['title'])
+            print (doc[session['user_id']]['Listing']['title'])
     return redirect(url_for('index')) 
 @app.route('/search', methods=['POST']) 
 def search_bar():
