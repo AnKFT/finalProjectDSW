@@ -12,7 +12,6 @@ import os
 import json
 import pymongo
 import sys
-import numbers
 
 app = Flask(__name__)
 
@@ -102,20 +101,10 @@ def showListings():
    
 @app.route('/display', methods=['POST'])
 def displayListing():
-  tablestr='<table>'  
-  table=""
-  for doc in collection.find():
-       if session['user_id'] in doc:
-            tablestr += '<tr class="listing"><td>'
-            tablestr += str(doc[session['user_id']]['Listing']['title'])
-            tablestr += "</td><td>"
-            tablestr += str(doc[session['user_id']]['Listing']['description'])
-            tablestr += "</td><td>"
-            tablestr += str(doc[session['user_id']]['Listing']['paypaladdress'])
-            tablestr += "</td><td>"
-   tablestr+='</table>'
-   table += Markup(tablestr)
-   return redirect(url_for('index'))
+    for doc in collection.find():
+        if session['user_id'] in doc:
+            print str(doc[session]['user_id']['Listing']['title'])
+    return redirect(url_for('index')) 
 @app.route('/search', methods=['POST']) 
 def search_bar():
     try:
@@ -127,7 +116,6 @@ def search_bar():
     return redirect(url_for('index'))
  
 @app.route('/login/authorized')
- 
 @google.authorized_handler
 def authorized(resp):
     if resp is None:
