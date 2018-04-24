@@ -58,7 +58,7 @@ def index():
     if 'google_token' in session:
         me = google.get('userinfo')
         session['user_id'] = me.data['id']
-        return render_template('home.html', info=me.data, listingTable=showListings())
+        return render_template('home.html', info=me.data, listingTable=showListings(),display=displayListing())
     return render_template('home.html',info=me)
   
 @app.route('/login')
@@ -98,7 +98,13 @@ def showListings():
     tablestr += "</table>"
     table += Markup(tablestr)
     return table
-
+   
+def displayListing():
+    for doc in collection.find():
+        if session['user_id'] in doc:
+            print(doc[session['user_id']]['Listing']['title']['description'])
+    return redirect(url_for('index'))
+   
 @app.route('/search', methods=['POST']) 
 def search_bar():
     try:
