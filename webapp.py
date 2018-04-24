@@ -58,8 +58,8 @@ def index():
     if 'google_token' in session:
         me = google.get('userinfo')
         session['user_id'] = me.data['id']
-        return render_template('home.html', info=me.data, listingTable=showListings(),display=displayListing())
-    return render_template('home.html',info=me)
+        return render_template('home.html', listingTable=showListings(),display=displayListing())
+    return render_template('home.html')
   
 @app.route('/login')
 def login():
@@ -72,7 +72,7 @@ def logout():
   
 @app.route('/createListing',methods=['POST'])
 def create_listing():
-    collection.insert_one({session['user_id']:{"Listing":{"title":request.form['ltitle'],'description':request.form['des'],'paypaladdress':request.form['ppemail']}}})
+    collection.insert_one({"Listing":{"title":request.form['ltitle'],'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']}})
     return redirect(url_for('index'))
   
 @app.route('/deleteListing',methods=['POST'])
@@ -86,13 +86,13 @@ def showListings():
     tablestr='<table id="listingT"><tr><td>Title</td><td>Description</td><td>Paypal</td></tr>'
     table=""
     for doc in collection.find():
-        if session['user_id'] in doc:
+        if session['user_id'] == doc['Listing']['user_id']:
             tablestr += '<tr class="listing"><td>'
-            tablestr += str(doc[session['user_id']]['Listing']['title'])
+            tablestr += str(doc['Listing']['title'])
             tablestr += "</td><td>"
-            tablestr += str(doc[session['user_id']]['Listing']['description'])
+            tablestr += str(doc['Listing']['description'])
             tablestr += "</td><td>"
-            tablestr += str(doc[session['user_id']]['Listing']['paypaladdress'])
+            tablestr += str(doc['Listing']['paypaladdress'])
             tablestr += "</td><td>"
             tablestr += '<button class="btn btn-danger deleteBtn" onclick="deletefunction()" value="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
     tablestr += "</table>"
@@ -100,15 +100,14 @@ def showListings():
     return table
    
 def displayListing():
-    listing=""
-    for doc in collection.find():
-        listing+='<div id="myCarousel" class="carousel slide" data-ride="carousel"><ol class="carousel-indicators">'
-        listing+='<li data-target="#myCarousel" data-slide-to="0" class="active"></li>'
-        listing+='<li data-target="#myCarousel" data-slide-to="1"></li>'
-        listing+='<li data-target="#myCarousel" data-slide-to="2"></li></ol>'
-        listing+='<div class="carousel-inner"><div class="carousel-item active"><img class="d-block w-100" src="http://qnimate.com/understanding-html-img-tag/" alt="First slide"></div>'
-        listing+='</div></div>'
-    return Markup(listing)
+	listing=''
+	for doc in collection.find():
+		listing+='<figure class="figure">'
+		listing+='<img src="https://lh3.googleusercontent.com/9hfLHZyz6OM0k5iJcs1HSJ-jAG0lllNiuvI0_TFmSc2Zm9nmUC548Ppyi69xSZWznZQb=s128" class="figure-img img-fluid rounded" alt="somerounded square">'
+		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
+		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['description']) + '</figcaption>'
+		listing+='</figure>'
+	return Markup(listing)
    
 @app.route('/search', methods=['POST']) 
 def search_bar():
