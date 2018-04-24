@@ -59,7 +59,7 @@ def index():
         me = google.get('userinfo')
         session['user_id'] = me.data['id']
         return render_template('home.html', listingTable=showListings(),display=displayListing())
-    return render_template('home.html')
+    return render_template('home.html',display=displayListing())
   
 @app.route('/login')
 def login():
