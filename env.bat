@@ -1,3 +1,8 @@
-SET SECRET_KEY=dog
-SET GOOGLE_CLIENT_ID=352851019134-1dbi86ejibimp47keiqf0cjtcp3p58c2.apps.googleusercontent.com
-SET GOOGLE_CLIENT_SECRET=qsvF4vx5eGBbpHWDAntXGEeK
+set MONGO_USERNAME=ebzondata
+set MONGO_DBNAME=ebzondata
+set MONGO_HOST=ds241019.mlab.com
+set MONGO_PASSWORD=dog
+set GOOGLE_CLIENT_ID=352851019134-g7q76kdl6s1iob6hpog7vj3s8mjsnj96.apps.googleusercontent.com
+set GOOGLE_CLIENT_SECRET=LupB4CROObGw4abhddnEpK5y
+set MONGO_PORT=41019
+set SECRET_KEY=dog

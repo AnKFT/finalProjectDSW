@@ -94,7 +94,7 @@ def showListings():
             tablestr += "</td><td>"
             tablestr += str(doc[session['user_id']]['Listing']['paypaladdress'])
             tablestr += "</td><td>"
-            tablestr += '<button class="btn btn-danger deleteButton" value="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
+            tablestr += '<button class="btn btn-danger deleteBtn" onclick="deletefunction()" value="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
     tablestr += "</table>"
     table += Markup(tablestr)
     return table

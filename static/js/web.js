@@ -1,5 +1,4 @@
-$(document).ready(function(){
-	$(".deleteButton").click(function(){
-               $("#listingT").load("/deleteListing", {'id':$(".deleteButton").val()});
-	})
-});
+function deletefunction() {
+	$("#listingT").load("/deleteListing", {'id':$(".deleteBtn").val()});		
+}
+
