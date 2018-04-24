@@ -100,10 +100,15 @@ def showListings():
     return table
    
 def displayListing():
+    listing=""
     for doc in collection.find():
-        if session['user_id'] in doc:
-            print(doc[session['user_id']]['Listing']['title']['description'])
-    return redirect(url_for('index'))
+        listing+='<div id="myCarousel" class="carousel slide" data-ride="carousel"><ol class="carousel-indicators">'
+        listing+='<li data-target="#myCarousel" data-slide-to="0" class="active"></li>'
+        listing+='<li data-target="#myCarousel" data-slide-to="1"></li>'
+        listing+='<li data-target="#myCarousel" data-slide-to="2"></li></ol>'
+        listing+='<div class="carousel-inner"><div class="carousel-item active"><img class="d-block w-100" src="http://qnimate.com/understanding-html-img-tag/" alt="First slide"></div>'
+        listing+='</div></div>'
+    return Markup(listing)
    
 @app.route('/search', methods=['POST']) 
 def search_bar():
