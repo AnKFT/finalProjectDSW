@@ -6,6 +6,7 @@ from bson import ObjectId
 from flask import flash
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, rooms, disconnect
 from threading import Lock
+from gridfs import GridFS
  
 import pprint
 import os
@@ -30,6 +31,7 @@ url = 'mongodb://{}:{}@{}:{}/{}'.format(
 client = pymongo.MongoClient(url)
 db = client[os.environ["MONGO_DBNAME"]]
 collection = db['searchbar'] #put the name of your collection in the quotes
+FS = GridFS(db)
 
 app.secret_key = os.environ['SECRET_KEY']
 oauth = OAuth(app)
@@ -70,9 +72,14 @@ def logout():
     session.pop('google_token', None)
     return redirect(url_for('index'))
   
+@app.route('/uploadimg',methods=['POST'])
+def upload_img():
+	string = FS.put(request.file['pic'])
+	return redirect(url_for('index'))
+  
 @app.route('/createListing',methods=['POST'])
 def create_listing():
-    collection.insert_one({"Listing":{"title":request.form['ltitle'],'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']}})
+    collection.insert_one({"Listing":{"title":request.form['ltitle'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']}})
     return redirect(url_for('index'))
   
 @app.route('/deleteListing',methods=['POST'])

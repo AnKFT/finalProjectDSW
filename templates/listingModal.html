@@ -25,13 +25,17 @@
         					<button type="button" class="close" data-dismiss="modal">&times;</button>
       					</div>
       					<div class="modal-body">
+							<form action="/uploadimg" method="post" enctype="multipart/form-data">
+								<input type="file" name="pic">
+								<input type="submit" value="Upload">
+							</form>
         					<form action="/createListing" method="post" id="createListForm">
 							<label for="ltitle">Title</label>
-							<input name="ltitle" type="text" class="form-control" placeholder="Pencil" id="ltitle" maxlength="8">
+							<input name="ltitle" type="text" class="form-control" placeholder="Pencil" id="ltitle" maxlength="18">
 							<label for="description">Description</label>
-							<input name="des" type="text" class="form-control" placeholder="New and sealed in package." id="des" maxlength="14">
+							<input name="des" type="text" class="form-control" placeholder="New and sealed in package." id="des" maxlength="24">
 							<label for="paypaladdress">PayPal</label>
-							<input name="ppemail" type="email" class="form-control" placeholder="name@example.com" id="paypaladdress" maxlength="20">
+							<input name="ppemail" type="email" class="form-control" placeholder="name@example.com" id="paypaladdress" maxlength="30">
 							<br>
 							<button type="submit" class="btn btn-success">Create</button>
 						</form>
