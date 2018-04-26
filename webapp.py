@@ -106,8 +106,17 @@ def displayListing():
 		listing+='<img src="https://lh3.googleusercontent.com/9hfLHZyz6OM0k5iJcs1HSJ-jAG0lllNiuvI0_TFmSc2Zm9nmUC548Ppyi69xSZWznZQb=s128" class="figure-img img-fluid rounded" alt="somerounded square">'
 		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
 		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['description']) + '</figcaption>'
+		listing+='<button class="btn btn-success buying" onclick="clickme()" type="button" data-toggle="modal" data-target="#buyingModal"  value="'+ str(doc.get('_id')) +'">Buy</button>'
 		listing+='</figure>'
 	return Markup(listing)
+
+@app.route('/showWUB',methods=['POST'])
+def show_buying():
+	buying=''
+	for doc in collection.find():
+	    if request.form['id'] == doc.get('_id'):
+		    buying += "<p>" + str(doc['Listing']['title']) + "</p>"
+	return Markup(buying)
    
 @app.route('/search', methods=['POST']) 
 def search_bar():
