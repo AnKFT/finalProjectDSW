@@ -1,17 +1,17 @@
 from flask import Flask, redirect, url_for, session, request, jsonify, Markup
+from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, rooms, disconnect
 from flask_oauthlib.client import OAuth
 from flask import render_template
 from flask_pymongo import PyMongo
 from bson import ObjectId
 from flask import flash
-from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, rooms, disconnect
 from threading import Lock
-from gridfs import GridFS
- 
+
 import pprint
 import os
 import json
 import pymongo
+import gridfs
 import sys
 
 app = Flask(__name__)
@@ -30,8 +30,8 @@ url = 'mongodb://{}:{}@{}:{}/{}'.format(
     
 client = pymongo.MongoClient(url)
 db = client[os.environ["MONGO_DBNAME"]]
-collection = db['searchbar'] #put the name of your collection in the quotes
-FS = GridFS(db)
+collection = db['fs.files'] #put the name of your collection in the quotes
+fs = gridfs.GridFS(db)
 
 app.secret_key = os.environ['SECRET_KEY']
 oauth = OAuth(app)
@@ -72,14 +72,15 @@ def logout():
     session.pop('google_token', None)
     return redirect(url_for('index'))
   
-@app.route('/uploadimg',methods=['POST'])
+@app.route('/uploadimg',methods=['GET','POST'])
 def upload_img():
-	string = FS.put(request.file['pic'])
-	return redirect(url_for('index'))
-  
+    if request.method == 'POST':
+	    string = fs.put(request.files['file'],Listing={"title":request.form['ltitle'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
+		return redirect(url_for('displayListing', imgstr=str(string)))
+    return redirect(url_for('index'))
+
 @app.route('/createListing',methods=['POST'])
 def create_listing():
-    collection.insert_one({"Listing":{"title":request.form['ltitle'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']}})
     return redirect(url_for('index'))
   
 @app.route('/deleteListing',methods=['POST'])
@@ -106,7 +107,7 @@ def showListings():
     table += Markup(tablestr)
     return table
    
-def displayListing():
+def displayListing(imgstr):
 	listing=''
 	for doc in collection.find():
 		listing+='<figure class="figure">'
