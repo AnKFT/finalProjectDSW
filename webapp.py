@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, session, request, jsonify, Markup
+from flask import Flask, redirect, url_for, session, request, jsonify, Markup, make_response
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, rooms, disconnect
 from flask_oauthlib.client import OAuth
 from flask import render_template
@@ -75,8 +75,7 @@ def logout():
 @app.route('/uploadimg',methods=['GET','POST'])
 def upload_img():
     if request.method == 'POST':
-	    string = fs.put(request.files['file'],Listing={"title":request.form['ltitle'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
-		return redirect(url_for('displayListing', imgstr=str(string)))
+	    string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
     return redirect(url_for('index'))
 
 @app.route('/createListing',methods=['POST'])
@@ -107,22 +106,29 @@ def showListings():
     table += Markup(tablestr)
     return table
    
-def displayListing(imgstr):
+def displayListing():
 	listing=''
 	for doc in collection.find():
 		listing+='<figure class="figure">'
-		listing+='<img src="https://lh3.googleusercontent.com/9hfLHZyz6OM0k5iJcs1HSJ-jAG0lllNiuvI0_TFmSc2Zm9nmUC548Ppyi69xSZWznZQb=s128" class="figure-img img-fluid rounded" alt="somerounded square">'
+		listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded" alt="somerounded square" width="50" height="50">'
 		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
 		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['description']) + '</figcaption>'
 		listing+='<button class="btn btn-success buying" onclick="clickme()" type="button" data-toggle="modal" data-target="#buyingModal"  value="'+ str(doc.get('_id')) +'">Buy</button>'
 		listing+='</figure>'
 	return Markup(listing)
+	
+@app.route('/download/<file_name>')
+def downloadimg(file_name):
+	grid_fs_file = fs.find_one({'filename': file_name})
+	response = make_response(grid_fs_file.read())
+	response.mimetype = grid_fs_file.content_type
+	return response
 
 @app.route('/showWUB',methods=['POST'])
 def show_buying():
 	buying=''
 	for doc in collection.find():
-	    if request.form['id'] == doc.get('_id'):
+	    if request.form['id'] == str(doc.get('_id')):
 		    buying += "<p>" + str(doc['Listing']['title']) + "</p>"
 	return Markup(buying)
    
