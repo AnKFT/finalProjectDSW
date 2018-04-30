@@ -121,7 +121,6 @@ def displayListing():
 def downloadimg(file_name):
 	grid_fs_file = fs.find_one({'filename': file_name})
 	response = make_response(grid_fs_file.read())
-	response.mimetype = grid_fs_file.content_type
 	return response
 
 @app.route('/showWUB',methods=['POST'])
