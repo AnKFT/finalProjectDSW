@@ -1,4 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
+<div id="buyingModal" class="modal fade" role="dialog">
+  	<div class="modal-dialog modal-dialog-centered">
+		<!-- Modal content-->
+    	<div class="modal-content">
+      		<div class="modal-header">
+				<h4 class="modal-title">Purchasing</h4>
+        			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p id="buyinginfo"></p>
+			</div>
+		</div>
+	</div>
+</div>
 {{ display }}
 {% endblock %}

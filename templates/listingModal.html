@@ -26,27 +26,23 @@
       					</div>
       					<div class="modal-body">
 							<form action="/uploadimg" method="post" enctype="multipart/form-data">
-							{% with messages=get_flashed_messages()%}
-								{%if messages %}
-									{% for message in messages %}
-									<div class="alert fade in alert-dismissible">
-									<a href="#" class="close" data-dismiss="alert" aria-label="close"> &times; </a>
-									<strong> {{ message }} </strong>
-								</div>
-									{% endfor %}
-								{% endif %}
-							{% endwith %}
-							
-								<input type="file" name="file">
+								<img id="imgpreview" src="{{ url_for('static',filename='img/preview.png') }}" alt="your image" width="200" height="200">
+								<br>
+								<input type="file" name="file" accept="image/*" id="imgtoupload">
 								<br>
 								<label for="ltitle">Title</label>
-								<input name="ltitle" type="text" class="form-control" placeholder="Pencil" id="ltitle" maxlength="40">
+								<input id="ltitle" name="ltitle" type="text" class="form-control" placeholder="Pencil" maxlength="40">
 								<label for="description">Description</label>
-								<input name="des" type="text" class="form-control" placeholder="New and sealed in package." id="des" maxlength="40">
+								<input id="description" name="des" type="text" class="form-control" placeholder="New and sealed in package." maxlength="40">
+								<label for="pricenumber">Price</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text">$</span>
+									</div>
+									<input id="pricenumber" name="pprice" type="number" class="form-control" placeholder="10.00" maxlength="10" min="0" step="any">
+								</div>
 								<label for="paypaladdress">PayPal</label>
-								<input name="ppemail" type="email" class="form-control" placeholder="name@example.com" id="paypaladdress" maxlength="40">
-								<label for="pricenumber"> Price </label>
-								<input name="pprice" type="number" class="form-control" placeholder="0.00" id="pricenumber" maxlength="10">
+								<input id="paypaladdress" name="ppemail" type="email" class="form-control" placeholder="email@gmail.com" maxlength="40">
 								<br>
 								<button type="submit" class="btn btn-success">Create</button>
 							</form>

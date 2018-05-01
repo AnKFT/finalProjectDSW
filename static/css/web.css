@@ -1,6 +1,22 @@
 #listingT{
 	width:100%;
 }
+
+#imgpreview{
+	display:block;
+    margin:auto;
+	border-radius:20px;
+}
+
+.listingimgs{
+	width:200px;
+	height:200px;
+}
+
+figure{
+	padding:25px;
+}
+
 body{
 	background-color: #ccffff;
 }

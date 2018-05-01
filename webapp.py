@@ -56,7 +56,6 @@ def inject_logged_in():
  
 @app.route('/')
 def index():
-    me="Not Logged In"
     if 'google_token' in session:
         me = google.get('userinfo')
         session['user_id'] = me.data['id']
@@ -75,14 +74,8 @@ def logout():
 @app.route('/uploadimg',methods=['GET','POST'])
 def upload_img():
 	if request.method == 'POST':
-		if '' in request.form['file']:
-			flash('please select a image file') #pls work
-		else: 
-			string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
+		string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
 	return redirect(url_for('index'))
-@app.route('/createListing',methods=['POST'])
-def create_listing():
-    return redirect(url_for('index'))
   
 @app.route('/deleteListing',methods=['POST'])
 def delete():
@@ -92,37 +85,52 @@ def delete():
     return showListings()
   
 def showListings():
-    tablestr='<table id="listingT"><tr><td>Title</td><td>Description</td><td>Paypal</td></tr>'
-    table=""
-    for doc in collection.find():
-        if session['user_id'] == doc['Listing']['user_id']:
-            tablestr += '<tr class="listing"><td>'
-            tablestr += str(doc['Listing']['title'])
-            tablestr += "</td><td>"
-            tablestr += str(doc['Listing']['description'])
-            tablestr += "</td><td>"
-            tablestr += str(doc['Listing']['paypaladdress'])
-            tablestr += "</td><td>"
-            tablestr += str(doc['Listing']['price'])
-            tablestr += "</td><td>"
-            tablestr += '<button class="btn btn-danger deleteBtn" onclick="deletefunction()" value="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
-    tablestr += "</table>"
-    table += Markup(tablestr)
-    return table
+	tablestr='<table id="listingT"><tr><td>Title</td><td>Description</td><td>Price</td><td>Paypal</td></tr>'
+	table=""
+	for doc in collection.find():
+		if session['user_id'] == doc['Listing']['user_id']:
+			tablestr += '<tr class="listing"><td>'
+			tablestr += str(doc['Listing']['title'])
+			tablestr += "</td><td>"
+			tablestr += str(doc['Listing']['description'])
+			tablestr += "</td><td>"
+			tablestr += "$"+str(doc['Listing']['price'])
+			tablestr += "</td><td>"
+			tablestr += str(doc['Listing']['paypaladdress'])
+			tablestr += "</td><td>"
+			tablestr += '<button class="btn btn-danger deleteBtn" onclick="deletefunction()" value="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
+	tablestr += "</table>"
+	table += Markup(tablestr)
+	return table
    
 def displayListing():
 	listing=''
 	for doc in collection.find():
 		listing+='<figure class="figure">'
-		listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded" alt="somerounded square" width="50" height="50">'
+		listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded listingimgs" alt="somerounded square">'
 		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
-		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['description']) + '</figcaption>'
-		listing+='<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post"> '
-		listing+='<input type="hidden" name="business" value="'+str(doc['Listing']['paypaladdress'])+'">'
-		listing+='<input type="hidden" name="cmd" value="_cart"><input type="hidden" name="add" value="1">'
-		listing+='<input type="hidden" name="item_name" value="'+str(doc['Listing']['title'])+'"><input type="hidden" name="amount" value="'+str(doc['Listing']['price'])+'"><input type="hidden" name="currency_code" value="USD">'
-		listing+='<input type="image" name="submit"onclick=getContinueShoppingURL(this.form) src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif"alt="Add to Cart"><img alt="" width="1" height="1"src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" ></form>'
+		listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
+		listing+='<button class="btn btn-success buying" onclick="swiab()" type="button" data-toggle="modal" data-target="#buyingModal"  value="'+ str(doc.get('_id')) +'">Buy</button>'
 		listing+='</figure>'
+	return Markup(listing)
+
+@app.route('/swiab', methods=['POST'])
+def show_item_info():
+	listing=''
+	for doc in collection.find():
+		if request.form['id'] == str(doc.get('_id')):
+			listing+='<figure class="figure">'
+			listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded listingimgs" alt="somerounded square">'
+			listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
+			listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['description']) + '</figcaption>'
+			listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
+			listing+='<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post"> '
+			listing+='<input type="hidden" name="business" value="'+str(doc['Listing']['paypaladdress'])+'">'
+			listing+='<input type="hidden" name="cmd" value="_cart"><input type="hidden" name="add" value="1">'
+			listing+='<input type="hidden" name="item_name" value="'+str(doc['Listing']['title'])+'">'
+			listing+='<input type="hidden" name="amount" value="'+str(doc['Listing']['price'])+'"><input type="hidden" name="currency_code" value="USD">'
+			listing+='<button type="submit" class="btn btn-success" onclick=getContinueShoppingURL(this.form)>Checkout</button>'
+			listing+='</figure>'
 	return Markup(listing)
 	
 @app.route('/download/<file_name>')
@@ -130,14 +138,6 @@ def downloadimg(file_name):
 	grid_fs_file = fs.find_one({'filename': file_name})
 	response = make_response(grid_fs_file.read())
 	return response
-
-@app.route('/showWUB',methods=['POST'])
-def show_buying():
-	buying=''
-	for doc in collection.find():
-	    if request.form['id'] == str(doc.get('_id')):
-		    buying += "<p>" + str(doc['Listing']['title']) + "</p>"
-	return Markup(buying)
    
 @app.route('/search', methods=['POST']) 
 def search_bar():
