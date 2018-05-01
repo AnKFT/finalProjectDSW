@@ -117,7 +117,11 @@ def displayListing():
 		listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded" alt="somerounded square" width="50" height="50">'
 		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
 		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['description']) + '</figcaption>'
-		listing+='<button class="btn btn-success buying" onclick="clickme()" type="button" data-toggle="modal" data-target="#buyingModal"  value="'+ str(doc.get('_id')) +'">Buy</button>'
+		listing+='<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post"> '
+		listing+='<input type="hidden" name="business" value="'+str(doc['Listing']['paypaladdress'])+'">'
+		listing+='<input type="hidden" name="cmd" value="_cart"><input type="hidden" name="add" value="1">'
+		listing+='<input type="hidden" name="item_name" value="'+str(doc['Listing']['title'])+'"><input type="hidden" name="amount" value="'+str(doc['Listing']['price'])+'"><input type="hidden" name="currency_code" value="USD">'
+		listing+='<input type="image" name="submit"onclick=getContinueShoppingURL(this.form) src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif"alt="Add to Cart"><img alt="" width="1" height="1"src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" ></form>'
 		listing+='</figure>'
 	return Markup(listing)
 	
