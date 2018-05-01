@@ -74,10 +74,12 @@ def logout():
   
 @app.route('/uploadimg',methods=['GET','POST'])
 def upload_img():
-    if request.method == 'POST':
-	    string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
-    return redirect(url_for('index'))
-
+	if request.method == 'POST':
+		if '' in request.form['file']:
+			flash('please select a image file') #pls work
+		else: 
+			string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
+	return redirect(url_for('index'))
 @app.route('/createListing',methods=['POST'])
 def create_listing():
     return redirect(url_for('index'))
