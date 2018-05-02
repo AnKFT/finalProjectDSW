@@ -118,6 +118,7 @@ def displayListing():
 def show_item_info():
 	listing=''
 	for doc in collection.find():
+		print("The button id: " + request.form['id'] + " The doc id: " + str(doc.get('_id'))
 		if request.form['id'] == str(doc.get('_id')):
 			listing+='<figure class="figure">'
 			listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded listingimgs" alt="somerounded square">'
