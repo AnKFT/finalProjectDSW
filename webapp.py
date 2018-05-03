@@ -74,7 +74,10 @@ def logout():
 @app.route('/uploadimg',methods=['GET','POST'])
 def upload_img():
 	if request.method == 'POST':
-		string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
+		if 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '':
+			flash("You did not fill in all the fields.")
+		else:
+			string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
 	return redirect(url_for('index'))
   
 @app.route('/deleteListing',methods=['POST'])
@@ -98,7 +101,7 @@ def showListings():
 			tablestr += "</td><td>"
 			tablestr += str(doc['Listing']['paypaladdress'])
 			tablestr += "</td><td>"
-			tablestr += '<button class="btn btn-danger deleteBtn" onclick="deletefunction()" value="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
+			tablestr += '<button class="btn btn-danger" onclick="deletefunction(event)" id="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
 	tablestr += "</table>"
 	table += Markup(tablestr)
 	return table
@@ -110,7 +113,7 @@ def displayListing():
 		listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded listingimgs" alt="somerounded square">'
 		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
 		listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
-		listing+='<button class="btn btn-success buying" onclick="swiab()" type="button" data-toggle="modal" data-target="#buyingModal"  value="'+ str(doc.get('_id')) +'">Buy</button>'
+		listing+='<button class="btn btn-success" onclick="swiab(event)" id="'+ str(doc.get('_id')) +'" type="button" data-toggle="modal" data-target="#buyingModal">Buy</button>'
 		listing+='</figure>'
 	return Markup(listing)
 
@@ -118,7 +121,6 @@ def displayListing():
 def show_item_info():
 	listing=''
 	for doc in collection.find():
-		print("The button id: " + request.form['id'] + " The doc id: " + str(doc.get('_id'))
 		if request.form['id'] == str(doc.get('_id')):
 			listing+='<figure class="figure">'
 			listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded listingimgs" alt="somerounded square">'
@@ -130,7 +132,7 @@ def show_item_info():
 			listing+='<input type="hidden" name="cmd" value="_cart"><input type="hidden" name="add" value="1">'
 			listing+='<input type="hidden" name="item_name" value="'+str(doc['Listing']['title'])+'">'
 			listing+='<input type="hidden" name="amount" value="'+str(doc['Listing']['price'])+'"><input type="hidden" name="currency_code" value="USD">'
-			listing+='<button type="submit" class="btn btn-success" onclick=getContinueShoppingURL(this.form)>Checkout</button>'
+			listing+='<button type="submit" class="btn btn-success" onclick=getContinueShoppingURL(this.form)>Checkout</button></form>'
 			listing+='</figure>'
 	return Markup(listing)
 	

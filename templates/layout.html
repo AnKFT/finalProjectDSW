@@ -15,10 +15,23 @@
     <script src="{{url_for('static',filename='js/web.js')}}"></script>
     <!-- css -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/web.css') }}">
+	<link rel="icon" href="{{ url_for('static', filename='img/logos.png') }}" type="image/x-icon" />
     <title>eBzon</title>
   </head>
   <body>
    {% include 'navbar.html' %}
-   {% block content %}{% endblock %} 
+   {% with messages=get_flashed_messages() %}
+      {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-success" role="alert">
+			<strong>Holy guacamole!</strong> {{ message }}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+          {% endfor %}
+      {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %} 
   </body>
 </html>

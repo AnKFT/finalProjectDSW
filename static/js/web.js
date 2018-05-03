@@ -1,9 +1,9 @@
-function deletefunction() {
-	$("#listingT").load("/deleteListing", {'id':$(".deleteBtn").val()});		
+function deletefunction(e) {
+	$("#listingT").load("/deleteListing", {'id':e.target.id});		
 }
 
-function swiab() {
-	$("#buyinginfo").load("/swiab", {'id':$(".buying").val()});		
+function swiab(e) {
+	$("#buyinginfo").load("/swiab", {'id':e.target.id});		
 }
 
 function readURL(input) {
@@ -24,5 +24,4 @@ $(document).ready(function(){
 		readURL(this);
 	})
 });
-	
 
