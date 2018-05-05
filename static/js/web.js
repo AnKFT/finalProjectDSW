@@ -3,7 +3,7 @@ function deletefunction(e) {
 }
 
 function swiab(e) {
-	$("#buyinginfo").load("/swiab", {'id':e.target.id});		
+	$("#buyinginfo").load("/swiab", {'id':e.id});		
 }
 
 function readURL(input) {
@@ -12,7 +12,7 @@ function readURL(input) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
-      $('#imgpreview').attr('src', e.target.result);
+      $('.imgpreview').attr('src', e.target.result);
     }
 
     reader.readAsDataURL(input.files[0]);

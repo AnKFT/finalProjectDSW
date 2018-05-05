@@ -77,7 +77,7 @@ def upload_img():
 		if 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '':
 			flash("You did not fill in all the fields.")
 		else:
-			string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
+			string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'quantity':request.form['qt'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
 	return redirect(url_for('index'))
   
 @app.route('/deleteListing',methods=['POST'])
@@ -109,12 +109,11 @@ def showListings():
 def displayListing():
 	listing=''
 	for doc in collection.find():
-		listing+='<figure class="figure">'
-		listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded listingimgs" alt="somerounded square">'
+		listing+='<div onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
+		listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
 		listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
 		listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
-		listing+='<button class="btn btn-success" onclick="swiab(event)" id="'+ str(doc.get('_id')) +'" type="button" data-toggle="modal" data-target="#buyingModal">Buy</button>'
-		listing+='</figure>'
+		listing+='</figure></div>'
 	return Markup(listing)
 
 @app.route('/swiab', methods=['POST'])
@@ -122,18 +121,16 @@ def show_item_info():
 	listing=''
 	for doc in collection.find():
 		if request.form['id'] == str(doc.get('_id')):
-			listing+='<figure class="figure">'
-			listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded listingimgs" alt="somerounded square">'
-			listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
-			listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['description']) + '</figcaption>'
-			listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
+			listing+='<img src="/download/'+ doc['filename'] +'" class="imgpreview" alt="somerounded square"><br>'
+			listing+='<div id="swiab"><h3 class="text-center" id="title"><b>' + str(doc['Listing']['title']) + '</b></h3>'
+			listing+='<p id="description"><b>&nbsp;Description:</b>&nbsp;' + str(doc['Listing']['description']) + '</p>'
+			listing+='<p id="price"><b>&nbsp;Price:</b>&nbsp;$' + str(doc['Listing']['price']) + '</p></div><br>'
 			listing+='<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post"> '
-			listing+='<input type="hidden" name="business" value="'+str(doc['Listing']['paypaladdress'])+'">'
-			listing+='<input type="hidden" name="cmd" value="_cart"><input type="hidden" name="add" value="1">'
+			listing+='<input type="hidden" name="business" value="' + str(doc['Listing']['paypaladdress']) + '">'
+			listing+='<input type="hidden" name="cmd" value="_xclick"><input type="hidden" name="undefined_quantity" value="1">'
 			listing+='<input type="hidden" name="item_name" value="'+str(doc['Listing']['title'])+'">'
 			listing+='<input type="hidden" name="amount" value="'+str(doc['Listing']['price'])+'"><input type="hidden" name="currency_code" value="USD">'
-			listing+='<button type="submit" class="btn btn-success" onclick=getContinueShoppingURL(this.form)>Checkout</button></form>'
-			listing+='</figure>'
+			listing+='<input type="image" name="submit" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="Buy Now"></form>'
 	return Markup(listing)
 	
 @app.route('/download/<file_name>')

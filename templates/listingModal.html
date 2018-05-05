@@ -26,14 +26,14 @@
       					</div>
       					<div class="modal-body">
 							<form action="/uploadimg" method="post" enctype="multipart/form-data">
-								<img id="imgpreview" src="{{ url_for('static',filename='img/preview.png') }}" alt="your image" width="200" height="200">
+								<img class="imgpreview" src="{{ url_for('static',filename='img/preview.png') }}" alt="your image" width="200" height="200">
 								<br>
 								<input type="file" name="file" accept="image/*" id="imgtoupload">
 								<br>
 								<label for="ltitle">Title</label>
 								<input id="ltitle" name="ltitle" type="text" class="form-control" placeholder="Pencil" maxlength="40">
-								<label for="description">Description</label>
-								<input id="description" name="des" type="text" class="form-control" placeholder="New and sealed in package." maxlength="40">
+								<label for="des">Description</label>
+								<input id="des" name="des" type="text" class="form-control" placeholder="New and sealed in package." maxlength="40">
 								<label for="pricenumber">Price</label>
 								<div class="input-group">
 									<div class="input-group-prepend">
@@ -41,6 +41,8 @@
 									</div>
 									<input id="pricenumber" name="pprice" type="number" class="form-control" placeholder="10.00" maxlength="10" min="0" step="any">
 								</div>
+								<label for="quantity">Quantity</label>
+								<input id="quantity" name="qt" type="number" class="form-control" placeholder="1" min="1" step="1">
 								<label for="paypaladdress">PayPal</label>
 								<input id="paypaladdress" name="ppemail" type="email" class="form-control" placeholder="email@gmail.com" maxlength="40">
 								<br>

@@ -2,15 +2,31 @@
 	width:100%;
 }
 
-#imgpreview{
+.imgpreview, .imgl{
 	display:block;
     margin:auto;
 	border-radius:20px;
-}
-
-.listingimgs{
 	width:200px;
 	height:200px;
+}
+
+#swiab{
+	border: 1px solid #DCDCDC;
+	border-radius:5px;
+}
+
+#description, #title{
+	border-bottom:1px solid #DCDCDC;
+	margin:0px;
+}
+
+#description, #title,#price{
+	padding-top:4px;
+	padding-bottom:8px;
+}
+
+#price{
+	margin-bottom:8px;
 }
 
 figure{
