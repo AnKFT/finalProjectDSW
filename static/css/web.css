@@ -10,6 +10,10 @@
 	height:200px;
 }
 
+.clickl{
+	display:inline;
+}
+
 #swiab{
 	border: 1px solid #DCDCDC;
 	border-radius:5px;
