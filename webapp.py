@@ -143,10 +143,9 @@ def downloadimg(file_name):
 def search_bar():
     search = {}
     search['key'] = request.form['searchvalue']
-    if request.form['searchvalue'] == str(doc['title']):
-	listing+=str(doc['Listing']['title'])
-    else:
-        print(collection.find(search))
+    for doc in collection.find():
+    	if request.form['searchvalue'] == str(doc['Listing']['title']):
+		listing+=str(doc['Listing']['title'])
     return redirect(url_for('index'))
  
 @app.route('/login/authorized')
