@@ -105,7 +105,8 @@ def showListings():
 	tablestr += "</table>"
 	table += Markup(tablestr)
 	return table
-   
+
+@app.route('/DL')
 def displayListing():
 	listing=''
 	for doc in collection.find():
