@@ -141,12 +141,12 @@ def downloadimg(file_name):
    
 @app.route('/search', methods=['POST']) 
 def search_bar():
-    try:
-        search = {}
-        search['key'] = request.form['searchvalue']
+    search = {}
+    search['key'] = request.form['searchvalue']
+    if request.form['searchvalue'] == str(doc['title']):
+	listing+=str(doc['Listing']['title'])
+    else:
         print(collection.find(search))
-    except Exception as e:
-        print(e)
     return redirect(url_for('index'))
  
 @app.route('/login/authorized')
