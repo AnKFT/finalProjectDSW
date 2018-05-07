@@ -88,7 +88,7 @@ def delete():
     return showListings()
   
 def showListings():
-	tablestr='<table id="listingT"><tr><td>Title</td><td>Description</td><td>Price</td><td>Paypal</td></tr>'
+	tablestr='<table id="listingT"><tr><td>Title</td><td>Description</td><td>Price</td><td>Paypal</td><td>&nbsp; Options</td></tr>'
 	table=""
 	for doc in collection.find():
 		if session['user_id'] == doc['Listing']['user_id']:
@@ -101,7 +101,8 @@ def showListings():
 			tablestr += "</td><td>"
 			tablestr += str(doc['Listing']['paypaladdress'])
 			tablestr += "</td><td>"
-			tablestr += '<button class="btn btn-danger" onclick="deletefunction(event)" id="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
+			tablestr += '<button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#editModal"> Edit</button>&nbsp;'
+			tablestr += '<button class="btn btn-outline-danger btn-sm" onclick="deletefunction(event)" id="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
 	tablestr += "</table>"
 	table += Markup(tablestr)
 	return table
