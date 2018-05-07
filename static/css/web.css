@@ -42,3 +42,11 @@ figure{
 body{
 	background-color: #ccffff;
 }
+
+.searchbar{
+	width:100%;
+}
+
+.searchbarin{
+	width:80% !important;
+}

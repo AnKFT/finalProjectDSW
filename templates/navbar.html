@@ -2,17 +2,17 @@
   <a class="navbar-brand" href=".">
       <img src="{{ url_for('static',filename='img/logos.png') }}" height="50" width="50">
   </a>
+  <div class="searchbar mx-auto">
   <form action="/search" class="form-inline" method="post">
-    <div class="searchbar">
-      <input class="form-control" name="searchvalue" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control searchbarin" name="searchvalue" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success" type="submit">Search</button>
-     </div>
   </form>
+  </div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	<ul class="navbar-nav dropdown">
+	<ul class="navbar-nav dropdown ml-auto">
 		{% if logged_in %}
 		<li class="nav-item">
 			<a class="nav-link" href="#" data-toggle="modal" data-target="#myModal2">Purchases</a>
@@ -31,6 +31,6 @@
 			<a class="nav-link" href="/login">Login</a>
 		</li>
 		{% endif %}
-    	</ul>
+    </ul>
    </div>
  </nav>
