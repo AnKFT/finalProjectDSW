@@ -106,7 +106,8 @@ def showListings():
 	tablestr += "</table>"
 	table += Markup(tablestr)
 	return table
-   
+
+@app.route('/DL')
 def displayListing():
 	listing=''
 	for doc in collection.find():
@@ -142,12 +143,11 @@ def downloadimg(file_name):
    
 @app.route('/search', methods=['POST']) 
 def search_bar():
-    try:
-        search = {}
-        search['key'] = request.form['searchvalue']
-        print(collection.find(search))
-    except Exception as e:
-        print(e)
+    search = {}
+    search['key'] = request.form['searchvalue']
+    #for doc in collection.find():
+    	#if request.form['searchvalue'] == str(doc['Listing']['title']):
+		#listing+=str(doc['Listing']['title'])
     return redirect(url_for('index'))
  
 @app.route('/login/authorized')

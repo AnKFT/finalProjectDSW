@@ -1,5 +1,6 @@
 function deletefunction(e) {
-	$("#listingT").load("/deleteListing", {'id':e.target.id});		
+	$("#listingT").load("/deleteListing", {'id':e.target.id});
+	$("#refreshDelete").load("/DL");	
 }
 
 function swiab(e) {
