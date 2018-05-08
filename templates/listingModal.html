@@ -55,7 +55,7 @@
     				</div>
   				</div>
 			</div>
-						<div id="editModal" class="modal fade" role="dialog">
+			<div id="editModal" class="modal fade" role="dialog">
   				<div class="modal-dialog modal-dialog-centered">
     				<!-- Modal content-->
     				<div class="modal-content">
@@ -64,29 +64,7 @@
         					<button type="button" class="close" data-dismiss="modal">&times;</button>
       					</div>
       					<div class="modal-body">
-							<form action="/uploadimg" method="post" enctype="multipart/form-data">
-								<img class="imgpreview" src="{{ url_for('static',filename='img/preview.png') }}" alt="your image" width="200" height="200">
-								<br>
-								<input type="file" name="file" accept="image/*" id="imgtoupload">
-								<br>
-								<label for="ltitle">Title</label>
-								<input id="ltitle" name="ltitle" type="text" class="form-control" placeholder="Pencil" maxlength="40">
-								<label for="des">Description</label>
-								<input id="des" name="des" type="text" class="form-control" placeholder="New and sealed in package." maxlength="40">
-								<label for="pricenumber">Price</label>
-								<div class="input-group">
-									<div class="input-group-prepend">
-										<span class="input-group-text">$</span>
-									</div>
-									<input id="pricenumber" name="pprice" type="number" class="form-control" placeholder="10.00" maxlength="10" min="0" step="any">
-								</div>
-								<label for="quantity">Quantity</label>
-								<input id="quantity" name="qt" type="number" class="form-control" placeholder="1" min="1" step="1">
-								<label for="paypaladdress">PayPal</label>
-								<input id="paypaladdress" name="ppemail" type="email" class="form-control" placeholder="email@gmail.com" maxlength="40">
-								<br>
-								<button type="submit" class="btn btn-outline-warning">Apply</button>
-							</form>
+							<p id="editclass"></p>
       					</div>
       					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
