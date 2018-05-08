@@ -6,6 +6,10 @@ function searchfunction(){
 	$("#refreshDelete").text("/search")
 }
 
+function fillin(e){
+	$("#editclass").load("/buildeditform", {'id':e.target.id});
+}
+
 function swiab(e) {
 	$("#buyinginfo").load("/swiab", {'id':e.id});		
 }

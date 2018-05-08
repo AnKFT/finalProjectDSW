@@ -44,7 +44,8 @@ body{
 }
 
 .searchbar{
-	width:100%;
+	width:50%;
+	padding-left:50px;
 }
 
 .searchbarin{

@@ -101,7 +101,7 @@ def showListings():
 			tablestr += "</td><td>"
 			tablestr += str(doc['Listing']['paypaladdress'])
 			tablestr += "</td><td>"
-			tablestr += '<button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#editModal"> Edit</button>&nbsp;'
+			tablestr += '<button class="btn btn-outline-info btn-sm" onclick="fillin(event)" data-toggle="modal" data-target="#editModal" id="' + str(doc.get('_id')) + '">Edit</button>&nbsp;'
 			tablestr += '<button class="btn btn-outline-danger btn-sm" onclick="deletefunction(event)" id="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
 	tablestr += "</table>"
 	table += Markup(tablestr)
@@ -135,6 +135,33 @@ def show_item_info():
 			listing+='<input type="image" name="submit" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="Buy Now"></form>'
 	return Markup(listing)
 	
+@app.route('/buildeditform' , methods=['POST'])
+def build_it():
+	listing=''
+	for doc in collection.find():
+		if request.form['id'] == str(doc.get('_id')):
+			listing+='<form action="/uploadimg" method="post" enctype="multipart/form-data">'
+			listing+='<img class="imgpreview" src="/download/'+ doc['filename'] + '" alt="your image" width="200" height="200"><br>'
+			listing+='<label for="ltitle">Title</label>'
+			listing+='<input id="ltitle" name="ltitle" type="text" class="form-control" maxlength="40" value="'+ str(doc['Listing']['title'])+'">'
+			listing+='<label for="des">Description</label>'
+			listing+='<input id="des" name="des" type="text" class="form-control" maxlength="40"value="'+ str(doc['Listing']['description'])+'">'
+			listing+='<label for="pricenumber">Price</label>'
+			listing+='<div class="input-group">'
+			listing+='<div class="input-group-prepend">'
+			listing+='<span class="input-group-text">$</span>'
+			listing+='</div>'
+			listing+='<input id="pricenumber" name="pprice" type="number" class="form-control" maxlength="10" min="0" step="any" value="'+ str(doc['Listing']['price'])+'">'
+			listing+='</div>'
+			listing+='<label for="quantity">Quantity</label>'
+			listing+='<input id="quantity" name="qt" type="number" class="form-control" min="1" step="1" value="'+ str(doc['Listing']['quantity'])+'">'
+			listing+='<label for="paypaladdress">PayPal</label>'
+			listing+='<input id="paypaladdress" name="ppemail" type="email" class="form-control" maxlength="40" value="'+ str(doc['Listing']['paypaladdress'])+'">'
+			listing+='<br>'
+			listing+='<button type="submit" class="btn btn-success">Create</button>'
+			listing+='</form>'
+	return Markup(listing)
+
 @app.route('/download/<file_name>')
 def downloadimg(file_name):
 	grid_fs_file = fs.find_one({'filename': file_name})
