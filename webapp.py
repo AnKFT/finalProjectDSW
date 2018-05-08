@@ -6,7 +6,6 @@ from flask_pymongo import PyMongo
 from bson import ObjectId
 from flask import flash
 from threading import Lock
-from gi.repository import Gtk, GLib, Gdk
 
 import pprint
 import os
