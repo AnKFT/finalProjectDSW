@@ -143,12 +143,15 @@ def downloadimg(file_name):
    
 @app.route('/search', methods=['POST']) 
 def search_bar():
-    search = {}
-    search['key'] = request.form['searchvalue']
-    #for doc in collection.find():
-    	#if request.form['searchvalue'] == str(doc['Listing']['title']):
-		#listing+=str(doc['Listing']['title'])
-    return redirect(url_for('index'))
+    listing=''
+    for doc in collection.find():
+    	if request.form['search'] == str(doc['Listing']['title']):
+            listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
+            listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
+            listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
+            listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
+            listing+='</figure></div>'
+    return Markup(listing)
  
 @app.route('/login/authorized')
 @google.authorized_handler

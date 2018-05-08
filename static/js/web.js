@@ -2,6 +2,9 @@ function deletefunction(e) {
 	$("#listingT").load("/deleteListing", {'id':e.target.id});
 	$("#refreshDelete").load("/DL");	
 }
+function searchfunction(){
+	$("#refreshDelete").text("/search")
+}
 
 function swiab(e) {
 	$("#buyinginfo").load("/swiab", {'id':e.id});		

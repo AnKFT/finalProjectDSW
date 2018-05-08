@@ -3,9 +3,9 @@
       <img src="{{ url_for('static',filename='img/logos.png') }}" height="50" width="50">
   </a>
   <div class="searchbar mx-auto">
-  <form action="/search" class="form-inline" method="post">
+  <form class="form-inline" method="post">
       <input class="form-control searchbarin" name="searchvalue" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+      <button class="btn btn-outline-success" onclick="searchfunction()">Search</button>
   </form>
   </div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
