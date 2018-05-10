@@ -2,8 +2,9 @@ function deletefunction(e) {
 	$("#listingT").load("/deleteListing", {'id':e.target.id});
 	$("#refreshDelete").load("/DL");	
 }
+
 function searchfunction(){
-	$("#refreshDelete").text("/search")
+	$("#refreshDelete").load("/search",{'search': $(".searchbarin").val()});
 }
 
 function fillin(e){
@@ -30,6 +31,13 @@ function readURL(input) {
 $(document).ready(function(){
 	$("#imgtoupload").change(function() {
 		readURL(this);
+	})
+	
+	$(".searchbarin").keypress(function(event) {
+		if (event.which == 13) {
+			event.preventDefault();
+			$("#refreshDelete").load("/search",{'search': $(".searchbarin").val()});
+		}
 	})
 });
 

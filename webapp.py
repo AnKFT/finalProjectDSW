@@ -101,7 +101,7 @@ def showListings():
 			tablestr += "</td><td>"
 			tablestr += str(doc['Listing']['paypaladdress'])
 			tablestr += "</td><td>"
-			tablestr += '<button class="btn btn-outline-info btn-sm" onclick="fillin(event)" data-toggle="modal" data-target="#editModal" id="' + str(doc.get('_id')) + '">Edit</button>&nbsp;'
+			tablestr += '<button class="btn btn-outline-info btn-sm" onclick="fillin(event)" data-toggle="modal" data-target="#editModal" data-dismiss="modal" id="' + str(doc.get('_id')) + '">Edit</button>&nbsp;'
 			tablestr += '<button class="btn btn-outline-danger btn-sm" onclick="deletefunction(event)" id="' + str(doc.get('_id')) + '">Delete</button></td></tr>'
 	tablestr += "</table>"
 	table += Markup(tablestr)
@@ -140,12 +140,13 @@ def build_it():
 	listing=''
 	for doc in collection.find():
 		if request.form['id'] == str(doc.get('_id')):
-			listing+='<form action="/uploadimg" method="post" enctype="multipart/form-data">'
+			listing+='<form action="/updateselectedlisting" method="post" enctype="multipart/form-data">'
 			listing+='<img class="imgpreview" src="/download/'+ doc['filename'] + '" alt="your image" width="200" height="200"><br>'
+			listing+='<input type="file" name="file" accept="image/*" id="imgtoupload"><br>'
 			listing+='<label for="ltitle">Title</label>'
 			listing+='<input id="ltitle" name="ltitle" type="text" class="form-control" maxlength="40" value="'+ str(doc['Listing']['title'])+'">'
 			listing+='<label for="des">Description</label>'
-			listing+='<input id="des" name="des" type="text" class="form-control" maxlength="40"value="'+ str(doc['Listing']['description'])+'">'
+			listing+='<input id="des" name="des" type="text" class="form-control" maxlength="40" value="'+ str(doc['Listing']['description'])+'">'
 			listing+='<label for="pricenumber">Price</label>'
 			listing+='<div class="input-group">'
 			listing+='<div class="input-group-prepend">'
@@ -157,11 +158,21 @@ def build_it():
 			listing+='<input id="quantity" name="qt" type="number" class="form-control" min="1" step="1" value="'+ str(doc['Listing']['quantity'])+'">'
 			listing+='<label for="paypaladdress">PayPal</label>'
 			listing+='<input id="paypaladdress" name="ppemail" type="email" class="form-control" maxlength="40" value="'+ str(doc['Listing']['paypaladdress'])+'">'
+			listing+='<input name="oid" type="hidden" value="'+ request.form['id'] +'">'
 			listing+='<br>'
-			listing+='<button type="submit" class="btn btn-success">Create</button>'
+			listing+='<button type="submit" class="btn btn-warning">Apply</button>'
 			listing+='</form>'
 	return Markup(listing)
-
+	
+@app.route('/updateselectedlisting', methods=['POST'])
+def apply():
+	dictinstance = {}
+	dictinstance['id'] = request.form['oid']
+	dictinstance['filename'] = request.files['file'].filename
+	dictinstance['Listing'] = {"title":request.form['ltitle'],'price':request.form['pprice'],'quantity':request.form['qt'],'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']}
+	db.collection.update_one({'id':request.form['oid']},{'$set':{'title':request.form['ltitle']}})
+	return redirect(url_for('index'))
+	
 @app.route('/download/<file_name>')
 def downloadimg(file_name):
 	grid_fs_file = fs.find_one({'filename': file_name})
@@ -170,15 +181,15 @@ def downloadimg(file_name):
    
 @app.route('/search', methods=['POST']) 
 def search_bar():
-    listing=''
-    for doc in collection.find():
-    	if request.form['search'] == str(doc['Listing']['title']):
-            listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
-            listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
-            listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
-            listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
-            listing+='</figure></div>'
-    return Markup(listing)
+	listing=''
+	for doc in collection.find():
+		if request.form['search'].lower() == str(doc['Listing']['title']).lower():
+			listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
+			listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
+			listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
+			listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
+			listing+='</figure></div>'
+	return Markup(listing)
  
 @app.route('/login/authorized')
 @google.authorized_handler
