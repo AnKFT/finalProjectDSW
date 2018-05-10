@@ -183,12 +183,21 @@ def downloadimg(file_name):
 def search_bar():
 	listing=''
 	for doc in collection.find():
-		if request.form['search'].lower() == str(doc['Listing']['title']).lower():
-			listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
-			listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
-			listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
-			listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
-			listing+='</figure></div>'
+		if ' ' in str(doc['Listing']['title']).lower():
+			p1 = str(doc['Listing']['title']).split()[0]
+			p2 = str(doc['Listing']['title']).split()[1]
+			if request.form['search'].lower() == p1.lower() or request.form['search'].lower() == p2.lower():
+				listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
+				listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
+				listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
+				listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
+				listing+='</figure></div>'
+			elif request.form['search'].lower() == str(doc['Listing']['title']).lower():
+				listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
+				listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
+				listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
+				listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
+				listing+='</figure></div>'
 	return Markup(listing)
  
 @app.route('/login/authorized')
