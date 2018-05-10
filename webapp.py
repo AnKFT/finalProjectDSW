@@ -166,11 +166,8 @@ def build_it():
 	
 @app.route('/updateselectedlisting', methods=['POST'])
 def apply():
-	dictinstance = {}
-	dictinstance['id'] = request.form['oid']
-	dictinstance['filename'] = request.files['file'].filename
-	dictinstance['Listing'] = {"title":request.form['ltitle'],'price':request.form['pprice'],'quantity':request.form['qt'],'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']}
-	db.collection.update_one({'id':request.form['oid']},{'$set':{'title':request.form['ltitle']}})
+	collection.delete_one({ "_id" : ObjectId(request.form['oid'])})
+	fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'quantity':request.form['qt'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
 	return redirect(url_for('index'))
 	
 @app.route('/download/<file_name>')
