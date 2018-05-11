@@ -163,7 +163,7 @@ def build_it():
 			listing+='<button type="submit" class="btn btn-warning">Apply</button>'
 			listing+='</form>'
 	return Markup(listing)
-	
+
 @app.route('/updateselectedlisting', methods=['POST'])
 def apply():
 	if request.method == 'POST':
@@ -193,12 +193,12 @@ def search_bar():
 				listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
 				listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
 				listing+='</figure></div>'
-			elif request.form['search'].lower() == str(doc['Listing']['title']).lower():
-				listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
-				listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
-				listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
-				listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
-				listing+='</figure></div>'
+		elif request.form['search'].lower() == str(doc['Listing']['title']).lower():
+			listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
+			listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
+			listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
+			listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
+			listing+='</figure></div>'
 	return Markup(listing)
  
 @app.route('/login/authorized')
