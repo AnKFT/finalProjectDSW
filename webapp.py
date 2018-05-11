@@ -166,8 +166,12 @@ def build_it():
 	
 @app.route('/updateselectedlisting', methods=['POST'])
 def apply():
-	collection.delete_one({ "_id" : ObjectId(request.form['oid'])})
-	fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'quantity':request.form['qt'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
+	if request.method == 'POST':
+		if 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '':
+			flash("You did not fill in all the fields.")
+		else:
+			collection.delete_one({ "_id" : ObjectId(request.form['oid'])})
+			fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'quantity':request.form['qt'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
 	return redirect(url_for('index'))
 	
 @app.route('/download/<file_name>')
