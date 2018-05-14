@@ -47,5 +47,9 @@ body{
 }
 
 .searchbarin{
-	width:80% !important;
+	width:70% !important;
+}
+
+.submitsearch{
+	margin-left:5px !important;
 }
