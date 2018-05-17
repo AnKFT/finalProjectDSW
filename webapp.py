@@ -74,10 +74,10 @@ def logout():
 @app.route('/uploadimg',methods=['GET','POST'])
 def upload_img():
 	if request.method == 'POST':
-		if 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '' or len(request.files['file'].read()) > (1 * 1024 * 1024):
-			flash("You did not fill in all the fields, or your images exceeded 1MB limit.")
+		if 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '':
+			flash("You did not fill in all the fields.")
 		else:
-			string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'], 'category': request.form['thecategory'],'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
+			string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'category':request.form['thecategory'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
 	return redirect(url_for('index'))
   
 @app.route('/deleteListing',methods=['POST'])
