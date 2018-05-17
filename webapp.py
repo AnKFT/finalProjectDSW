@@ -64,7 +64,7 @@ def index():
   
 @app.route('/login')
 def login():
-    return google.authorize(callback=url_for('authorized', _external=True,_scheme="http"))
+    return google.authorize(callback=url_for('authorized', _external=True))
  
 @app.route('/logout')
 def logout():
