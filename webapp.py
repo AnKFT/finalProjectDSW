@@ -64,7 +64,7 @@ def index():
   
 @app.route('/login')
 def login():
-    return google.authorize(callback=url_for('authorized', _external=True))
+    return google.authorize(callback=url_for('authorized', _external=True,_scheme="http"))
  
 @app.route('/logout')
 def logout():
@@ -77,7 +77,7 @@ def upload_img():
 		if 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '' or len(request.files['file'].read()) > (1 * 1024 * 1024):
 			flash("You did not fill in all the fields, or your images exceeded 1MB limit.")
 		else:
-			fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'category':request.form['thecategory'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
+			string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'], 'category': request.form['thecategory'],'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
 	return redirect(url_for('index'))
   
 @app.route('/deleteListing',methods=['POST'])
