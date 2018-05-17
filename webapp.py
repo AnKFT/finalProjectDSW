@@ -17,7 +17,7 @@ import sys
 app = Flask(__name__)
 
 app.debug = True #Change this to False for production
- 
+
 # You must configure these 3 values from Google APIs console
 # https://code.google.com/apis/console
 
@@ -64,7 +64,7 @@ def index():
   
 @app.route('/login')
 def login():
-    return google.authorize(callback=url_for('authorized', _external=True, _scheme='https'))
+    return google.authorize(callback=url_for('authorized', _external=True, _scheme='http'))
  
 @app.route('/logout')
 def logout():
@@ -74,10 +74,10 @@ def logout():
 @app.route('/uploadimg',methods=['GET','POST'])
 def upload_img():
 	if request.method == 'POST':
-		if 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '':
-			flash("You did not fill in all the fields.")
+		if 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '' or len(request.files['file'].read()) > (1 * 1024 * 1024):
+			flash("You did not fill in all the fields, or your images exceeded 1MB limit.")
 		else:
-			string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'quantity':request.form['qt'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
+			fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'quantity':request.form['qt'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
 	return redirect(url_for('index'))
   
 @app.route('/deleteListing',methods=['POST'])
@@ -154,8 +154,6 @@ def build_it():
 			listing+='</div>'
 			listing+='<input id="pricenumber" name="pprice" type="number" class="form-control" maxlength="10" min="0" step="any" value="'+ str(doc['Listing']['price'])+'">'
 			listing+='</div>'
-			listing+='<label for="quantity">Quantity</label>'
-			listing+='<input id="quantity" name="qt" type="number" class="form-control" min="1" step="1" value="'+ str(doc['Listing']['quantity'])+'">'
 			listing+='<label for="paypaladdress">PayPal</label>'
 			listing+='<input id="paypaladdress" name="ppemail" type="email" class="form-control" maxlength="40" value="'+ str(doc['Listing']['paypaladdress'])+'">'
 			listing+='<input name="oid" type="hidden" value="'+ request.form['id'] +'">'
@@ -208,7 +206,7 @@ def authorized(resp):
         me = 'Access denied: reason=%s error=%s' + request.args['error_reason'] + request.args['error_description']
     session['google_token'] = (resp['access_token'], '')
     return redirect(url_for('index'))
-   
+	
 @google.tokengetter
 def get_google_oauth_token():
     return session.get('google_token')
