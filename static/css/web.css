@@ -4,7 +4,7 @@
 
 .imgpreview, .imgl{
 	display:block;
-    margin:auto;
+    	margin:auto;
 	border-radius:20px;
 	width:200px;
 	height:200px;
@@ -52,4 +52,8 @@ body{
 
 .submitsearch{
 	margin-left:5px !important;
+}
+
+.modal{
+    	overflow-y: auto;
 }
