@@ -83,6 +83,7 @@ def upload_img():
 				string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'category':request.form['thecategory'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
 	except Exception as e:
 		print(e)
+		return redirect(url_for('index'))
 	return redirect(url_for('index'))
   
 @app.route('/deleteListing',methods=['POST'])
