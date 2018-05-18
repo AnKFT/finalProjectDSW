@@ -33,6 +33,8 @@ db = client[os.environ["MONGO_DBNAME"]]
 collection = db['fs.files'] #put the name of your collection in the quotes
 fs = gridfs.GridFS(db)
 
+app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024
+
 app.secret_key = os.environ['SECRET_KEY']
 oauth = OAuth(app)
 
@@ -74,8 +76,8 @@ def logout():
 @app.route('/uploadimg',methods=['GET','POST'])
 def upload_img():
 	if request.method == 'POST':
-		if len(request.files['file'].read()) > (1 * 1024 * 1024) or 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '':
-			flash("You did not fill in all the fields.")
+		if 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '':
+			flash("You did not fill in all the fields, or you image exceeds the 2MB size limit.")
 		else:
 			string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'category':request.form['thecategory'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
 	return redirect(url_for('index'))
@@ -206,6 +208,11 @@ def authorized(resp):
         me = 'Access denied: reason=%s error=%s' + request.args['error_reason'] + request.args['error_description']
     session['google_token'] = (resp['access_token'], '')
     return redirect(url_for('index'))
+	
+@app.errorhandler(413)
+def request_entity_too_large(error):
+	flash('Your file was too large')
+	return redirect(url_for('index'))
 	
 @google.tokengetter
 def get_google_oauth_token():
