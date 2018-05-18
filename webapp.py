@@ -75,15 +75,14 @@ def logout():
   
 @app.route('/uploadimg',methods=['GET','POST'])
 def upload_img():
-	if request.method == 'POST':
-		if 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '':
-			flash("You did not fill in all the fields.")
-		else:
-			try:
+	try:
+		if request.method == 'POST':
+			if len() > (3 * 1024 * 1024) or 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '':
+				flash("You did not fill in all the fields.")
+			else:
 				string = fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'category':request.form['thecategory'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
-			except Exception as e:
-				print(e)
-				flash('Your file exceeds the file size limit')
+	except Exception as e:
+		print(e)
 	return redirect(url_for('index'))
   
 @app.route('/deleteListing',methods=['POST'])
