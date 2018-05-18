@@ -210,7 +210,8 @@ def authorized(resp):
     return redirect(url_for('index'))
 	
 @app.errorhandler(413)
-def request_entity_too_large():
+def request_entity_too_large(error):
+	print(error)
 	flash('Your file was too large')
 	return redirect(url_for('index'))
 	
