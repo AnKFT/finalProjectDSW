@@ -168,7 +168,7 @@ def build_it():
 def apply():
 	if request.method == 'POST':
 		if 'file' not in request.files or request.form['ltitle'] == '' or request.form['pprice'] == '' or request.form['des'] == '' or request.form['ppemail'] == '':
-			flash("You did not fill in all the fields.")
+			flash("You did not fill in all of the fields!")
 		else:
 			collection.delete_one({ "_id" : ObjectId(request.form['oid'])})
 			fs.put(request.files['file'], filename=request.files['file'].filename,Listing={"title":request.form['ltitle'],'price':request.form['pprice'],'category':request.form['thecategory'], 'description':request.form['des'],'paypaladdress':request.form['ppemail'],'user_id':session['user_id']})
