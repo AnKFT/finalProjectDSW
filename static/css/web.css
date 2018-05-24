@@ -5,9 +5,22 @@
 .imgpreview, .imgl{
 	display:block;
     	margin:auto;
-	border-radius:20px;
+	border-radius:15px !important;
 	width:200px;
 	height:200px;
+}
+
+.descriptionfig, .priceoffig{
+	background-color:goldenrod;
+}
+
+.descriptionfig{
+	margin-top:5px;
+	border-radius:15px 15px 0px 0px;
+}
+
+.priceoffig{
+	border-radius:0px 0px 15px 15px;
 }
 
 .clickl{
@@ -38,7 +51,7 @@ figure{
 }
 
 body{
-	background-color: #78edd5;
+	background:linear-gradient(#003399,#57e099);
 }
 
 .searchbar{
@@ -56,4 +69,14 @@ body{
 
 .modal{
     	overflow-y: auto;
+}
+
+.catlabel{
+		border-radius:0px 10px 10px 0px;
+		font-size: 20px;
+		padding-left: 15px;
+		padding-right: 5px;
+		padding-top:15px;
+		margin:0px;
+		color: white;
 }
