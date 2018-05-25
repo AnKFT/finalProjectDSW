@@ -11,7 +11,7 @@
 }
 
 .descriptionfig, .priceoffig{
-	background-color:goldenrod;
+	background-color:rgba(255,255,255,0.5);
 }
 
 .descriptionfig{
@@ -72,7 +72,6 @@ body{
 }
 
 .catlabel{
-		border-radius:0px 10px 10px 0px;
 		font-size: 20px;
 		padding-left: 15px;
 		padding-right: 5px;
