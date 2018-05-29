@@ -5,7 +5,7 @@
   <div class="searchbar mx-auto">
   <form class="form-inline" method="post">
       <input class="form-control searchbarin" name="searchvalue" type="search" placeholder="Search" aria-label="Search">
-      <button type="button" class="btn btn-outline-success submitsearch" onclick="searchfunction()">Search</button>
+      <button type="button" class="btn btn-info submitsearch" onclick="searchfunction()">Search</button>
   </form>
   </div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,44 +18,44 @@
           Category Search
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ url_for('index',cat='animals') }}">Animals</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='books') }}">Books</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='board-games') }}">Board Games</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='brogle') }}">Brogle</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='cars') }}">Cars</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='computers') }}">Computers</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='dieting') }}">Dieting</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='dvds') }}">DVD's & Movies</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='electronics') }}">Electronics</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='education') }}">Education</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='food') }}">Food</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='fantastics') }}">Fantastic Sams</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='gallery') }}">Gallery</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='garbage') }}">Garbage</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='houses') }}">Household Items</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='happy') }}">Happy Products</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='instruments') }}">Instruments</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='iguana') }}">Iguanas</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='jewelry') }}">Jewelry</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='large') }}">Large Products</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='lamps') }}">Lamps</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='music') }}">Music</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='magic') }}">Magical Products</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='pottery') }}">Pottery</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='pets') }}">Pets</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='red') }}">Red Products</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='rollercoasters') }}">RollerCoasters</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='sports') }}">Sporting Goods</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='spooky') }}">Spooky Products</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='toys') }}">Toys</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='travel') }}">Traveling</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='video-games') }}">Video Games</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='vehicles') }}">Vehicles</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='winter') }}">Winter Products</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='xray') }}">X-Ray Machines</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='yoga') }}">Yoga Products</a>
-          <a class="dropdown-item" href="{{ url_for('index',cat='yogurt') }}">Yogurt</a>
-		  <a class="dropdown-item" href="{{ url_for('index',cat='sleep') }}">ZzZ</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Animals') }}">Animals</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Books') }}">Books</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Board Games') }}">Board Games</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='Brogle') }}">Brogle</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Cars') }}">Cars</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Computers') }}">Computers</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='Dieting') }}">Dieting</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Dvds and Movies') }}">DVD's & Movies</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Electronics') }}">Electronics</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='Education') }}">Education</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Food') }}">Food</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Fantastic Sams') }}">Fantastic Sams</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='Gallery') }}">Gallery</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Garbage') }}">Garbage</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Household Items') }}">Household Items</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='Happy Products') }}">Happy Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Instruments') }}">Instruments</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Iguanas') }}">Iguanas</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='Jewelry') }}">Jewelry</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Large Products') }}">Large Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Lamps') }}">Lamps</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='Music') }}">Music</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Magical Products') }}">Magical Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Pottery') }}">Pottery</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='Pets') }}">Pets</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Red Products') }}">Red Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Rollercoasters') }}">RollerCoasters</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='Sporting Goods') }}">Sporting Goods</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Spooky Products') }}">Spooky Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Toys') }}">Toys</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='Traveling') }}">Traveling</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Video Games') }}">Video Games</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Vehicles') }}">Vehicles</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='Winter Products') }}">Winter Products</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='X-Ray Machines') }}">X-Ray Machines</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Yoga Products') }}">Yoga Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='Yogurt') }}">Yogurt</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='ZzZ') }}">ZzZ</a>
           <a class="dropdown-item" href="{{ url_for('index',cat='etc') }}">Other Products</a>
         </div>
        </li>
