@@ -13,6 +13,52 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	<ul class="navbar-nav dropdown ml-auto">
+		<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Category Search
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ url_for('index',cat='animals') }}">Animals</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='books') }}">Books</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='board-games') }}">Board Games</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='brogle') }}">Brogle</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='cars') }}">Cars</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='computers') }}">Computers</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='dieting') }}">Dieting</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='dvds') }}">DVD's & Movies</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='electronics') }}">Electronics</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='education') }}">Education</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='food') }}">Food</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='fantastics') }}">Fantastic Sams</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='gallery') }}">Gallery</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='garbage') }}">Garbage</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='houses') }}">Household Items</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='happy') }}">Happy Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='instruments') }}">Instruments</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='iguana') }}">Iguanas</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='jewelry') }}">Jewelry</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='large') }}">Large Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='lamps') }}">Lamps</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='music') }}">Music</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='magic') }}">Magical Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='pottery') }}">Pottery</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='pets') }}">Pets</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='red') }}">Red Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='rollercoasters') }}">RollerCoasters</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='sports') }}">Sporting Goods</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='spooky') }}">Spooky Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='toys') }}">Toys</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='travel') }}">Traveling</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='video-games') }}">Video Games</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='vehicles') }}">Vehicles</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='winter') }}">Winter Products</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='xray') }}">X-Ray Machines</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='yoga') }}">Yoga Products</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='yogurt') }}">Yogurt</a>
+		  <a class="dropdown-item" href="{{ url_for('index',cat='sleep') }}">ZzZ</a>
+          <a class="dropdown-item" href="{{ url_for('index',cat='etc') }}">Other Products</a>
+        </div>
+       </li>
 		{% if logged_in %}
 		<li class="nav-item">
 			<a class="nav-link" href="#" data-toggle="modal" data-target="#myModal2">Purchases</a>

@@ -33,8 +33,6 @@ db = client[os.environ["MONGO_DBNAME"]]
 collection = db['fs.files'] #put the name of your collection in the quotes
 fs = gridfs.GridFS(db)
 
-app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024
-
 app.secret_key = os.environ['SECRET_KEY']
 oauth = OAuth(app)
 
@@ -58,12 +56,11 @@ def inject_logged_in():
  
 @app.route('/')
 def index():
-    if 'google_token' in session:
-        me = google.get('userinfo')
-        session['user_id'] = me.data['id']
-        return render_template('home.html', listingTable=showListings(),cat1=displayListing('animals'), cat2=displayListing('books'), cat3=displayListing('board-games'), cat4=displayListing('brogle'), cat5=displayListing('cars'), cat6=displayListing('computers'), cat7=displayListing('dieting'), cat8=displayListing('dvds'), cat9=displayListing('electronics'), cat10=displayListing('education'), cat11=displayListing('food'), cat12=displayListing('fantastics'), cat13=displayListing('gallery'), cat14=displayListing('garbage'), cat15=displayListing('houses'), cat16=displayListing('happy'), cat17=displayListing('instruments'), cat18=displayListing('iguana'), cat19=displayListing('jewelry'), cat20=displayListing('large'), cat21=displayListing('lamps'), cat22=displayListing('music'), cat23=displayListing('magic'), cat24=displayListing('pottery'), cat25=displayListing('pets'), cat26=displayListing('red'), cat27=displayListing('rollercoasters'), cat28=displayListing('sports'), cat29=displayListing('spooky'), cat30=displayListing('toys'), cat31=displayListing('travel'), cat32=displayListing('video-games'), cat33=displayListing('vehicles'), cat34=displayListing('winter'), cat35=displayListing('xray'), cat36=displayListing('yoga'), cat37=displayListing('yogurt'), cat38=displayListing('sleep'), cat39=displayListing('etc'))
-    return render_template('home.html',cat1=displayListing('animals'), cat2=displayListing('books'), cat3=displayListing('board-games'), cat4=displayListing('brogle'), cat5=displayListing('cars'), cat6=displayListing('computers'), cat7=displayListing('dieting'), cat8=displayListing('dvds'), cat9=displayListing('electronics'), cat10=displayListing('education'), cat11=displayListing('food'), cat12=displayListing('fantastics'), cat13=displayListing('gallery'), cat14=displayListing('garbage'), cat15=displayListing('houses'), cat16=displayListing('happy'), cat17=displayListing('instruments'), cat18=displayListing('iguana'), cat19=displayListing('jewelry'), cat20=displayListing('large'), cat21=displayListing('lamps'), cat22=displayListing('music'), cat23=displayListing('magic'), cat24=displayListing('pottery'), cat25=displayListing('pets'), cat26=displayListing('red'), cat27=displayListing('rollercoasters'), cat28=displayListing('sports'), cat29=displayListing('spooky'), cat30=displayListing('toys'), cat31=displayListing('travel'), cat32=displayListing('video-games'), cat33=displayListing('vehicles'), cat34=displayListing('winter'), cat35=displayListing('xray'), cat36=displayListing('yoga'), cat37=displayListing('yogurt'), cat38=displayListing('sleep'), cat39=displayListing('etc'))
-  
+	if 'google_token' in session:
+		me = google.get('userinfo')
+		session['user_id'] = me.data['id']
+		return render_template('home.html', listingTable=showListings(), cat1=displayListing(request.args.get('cat')) , catlabel=request.args.get('cat'))
+	return render_template('home.html', cat1=displayListing(request.args.get('cat')), catlabel=request.args.get('cat')) 
 @app.route('/login')
 def login():
     return google.authorize(callback=url_for('authorized', _external=True))
@@ -210,11 +207,6 @@ def authorized(resp):
         me = 'Access denied: reason=%s error=%s' + request.args['error_reason'] + request.args['error_description']
     session['google_token'] = (resp['access_token'], '')
     return redirect(url_for('index'))
-	
-@app.errorhandler(413)
-def request_entity_too_large(error):
-	print(error)
-	return redirect(url_for('index'))
 	
 @google.tokengetter
 def get_google_oauth_token():
