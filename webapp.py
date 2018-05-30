@@ -56,11 +56,17 @@ def inject_logged_in():
  
 @app.route('/')
 def index():
+	cat = ''
+	if str(request.args.get('cat')) == 'None':
+		print('here')
+		cat = 'All Listings'
+	else:
+		cat = request.args.get('cat')
 	if 'google_token' in session:
 		me = google.get('userinfo')
 		session['user_id'] = me.data['id']
-		return render_template('home.html', listingTable=showListings(), cat1=displayListing(request.args.get('cat')) , catlabel=request.args.get('cat'))
-	return render_template('home.html', cat1=displayListing(request.args.get('cat')), catlabel=request.args.get('cat')) 
+		return render_template('home.html', listingTable=showListings(), cat1=displayListing(cat) , catlabel=cat)
+	return render_template('home.html', cat1=displayListing(cat), catlabel=cat) 
 @app.route('/login')
 def login():
     return google.authorize(callback=url_for('authorized', _external=True))
@@ -110,7 +116,13 @@ def showListings():
 def displayListing(category):
 	listing=''
 	for doc in collection.find():
-		if category == doc['Listing']['category']:
+		if category == 'All Listings':
+			listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
+			listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
+			listing+='<figcaption class="figure-caption text-center descriptionfig">' + str(doc['Listing']['title']) + '</figcaption>'
+			listing+='<figcaption class="figure-caption text-center priceoffig">$' + str(doc['Listing']['price']) + '</figcaption>'
+			listing+='</figure></div>'
+		elif str(category).lower() == doc['Listing']['category'].lower():
 			listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
 			listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
 			listing+='<figcaption class="figure-caption text-center descriptionfig">' + str(doc['Listing']['title']) + '</figcaption>'
@@ -189,14 +201,14 @@ def search_bar():
 			if request.form['search'].lower() == p1.lower() or request.form['search'].lower() == p2.lower():
 				listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
 				listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
-				listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
-				listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
+				listing+='<figcaption class="figure-caption text-center descriptionfig">' + str(doc['Listing']['title']) + '</figcaption>'
+				listing+='<figcaption class="figure-caption text-center priceoffig">$' + str(doc['Listing']['price']) + '</figcaption>'
 				listing+='</figure></div>'
 		elif request.form['search'].lower() == str(doc['Listing']['title']).lower():
 			listing+='<div class="clickl" onclick="swiab(this)" id="'+ str(doc.get('_id')) + '">' + '<figure class="figure" data-toggle="modal" data-target="#buyingModal">'
 			listing+='<img src="/download/'+ doc['filename'] +'" class="figure-img img-fluid rounded imgl" alt="somerounded square">'
-			listing+='<figcaption class="figure-caption text-center">' + str(doc['Listing']['title']) + '</figcaption>'
-			listing+='<figcaption class="figure-caption text-center">$' + str(doc['Listing']['price']) + '</figcaption>'
+			listing+='<figcaption class="figure-caption text-center descriptionfig">' + str(doc['Listing']['title']) + '</figcaption>'
+			listing+='<figcaption class="figure-caption text-center priceoffig">$' + str(doc['Listing']['price']) + '</figcaption>'
 			listing+='</figure></div>'
 	return Markup(listing)
  
