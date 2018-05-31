@@ -1,5 +1,4 @@
 html{
-	background:linear-gradient(#003399,#57e099);
 	height:100%;
 }
 
@@ -56,7 +55,11 @@ figure{
 }
 
 body{
-	background-color: transparent;
+	background:linear-gradient(#003399,#57e099);
+	margin : 0;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	height: 100%;
 }
 
 .searchbar{
