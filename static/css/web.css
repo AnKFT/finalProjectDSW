@@ -60,16 +60,12 @@ body{
 }
 
 .searchbar{
-	width:50%;
-	padding-left:50px;
+	padding-left:15px;
+	width:80% !important;
 }
 
-.searchbarin{
-	width:70% !important;
-}
-
-.submitsearch{
-	margin-left:5px !important;
+.nav-link{
+	color:white !important;
 }
 
 .modal{
